@@ -431,4 +431,55 @@
     })();
 
 
+    // 平滑滚动功能
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href');
+            const targetSection = document.querySelector(targetId);
+            
+            if (targetSection) {
+                targetSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+                
+                // 更新激活状态
+                document.querySelectorAll('.nav-link').forEach(navLink => {
+                    navLink.classList.remove('active');
+                });
+                this.classList.add('active');
+            }
+        });
+    });
+
+    // 滚动时更新导航激活状态
+    window.addEventListener('scroll', function() {
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+        
+        let current = '';
+        
+        // 检测当前所在区域
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+            if (pageYOffset >= (sectionTop - sectionHeight/3)) {
+                current = section.getAttribute('id');
+            }
+        });
+
+        // 所有链接先重置为白色
+        navLinks.forEach(link => {
+            link.style.color = '#ffffff';
+        });
+
+        // 当前区域的链接设置为红色
+        const currentLink = document.querySelector(`a[href="#${current}"]`);
+        if (currentLink) {
+            currentLink.style.color = '#af2b2b';
+        }
+    });
+
 })(jQuery);

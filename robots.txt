@@ -1,30 +1,9 @@
 User-agent: *
 Allow: /
-Allow: /blog/
-Allow: /archives/
-Allow: /categories/
-Allow: /tags/ 
 Allow: /images/
-Allow: /img/
+Allow: /css/
+Allow: /js/
+Disallow: /admin/
+Disallow: /private/
 
-Allow: /
-Allow: /blog/
-Allow: /images/
-Allow: /blog/About/
-Allow: /blog/archives/
-Allow: /blog/categories/
-Allow: /blog/files/
-Allow: /blog/images/
-Allow: /blog/tags/
-Allow: /blog/page
-
-Disallow: /css/
-Disallow: /fonts/
-Disallow: /inc/
-Disallow: /js/
-Disallow: /blog/css/
-Disallow: /blog/lib/
-Disallow: /blog/js/
-Disallow: /blog/css/
-
-Sitemap: https://indeedinvest.info/blog/sitemap.xml
+Sitemap: https://johnnykao.com/sitemap.xml 

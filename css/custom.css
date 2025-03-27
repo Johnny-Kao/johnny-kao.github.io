@@ -1,0 +1,669 @@
+:root {
+    --primary-color: #333333;
+    --secondary-color: #000000;
+    --accent-color: #666666;
+    --text-color: #333333;
+    --link-hover-color: #808080;
+}
+
+/* 头部样式 */
+.s-header {
+    background-color: var(--secondary-color);
+}
+
+/* 按钮样式 */
+.btn--stroke {
+    border-color: #333333;
+    color: #333333;
+}
+
+.btn--stroke:hover {
+    background-color: #333333;
+    color: #ffffff;
+}
+
+/* Footer 样式 */
+footer {
+    background-color: var(--secondary-color);
+    padding: 3rem 0;
+}
+
+.footer-social {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.footer-social a {
+    color: #333333;
+    transition: color 0.3s ease;
+}
+
+.footer-social a:hover {
+    color: var(--link-hover-color);
+}
+
+/* 移动端适配 */
+@media screen and (max-width: 768px) {
+    .home-content__main h1 {
+        font-size: 2.5rem;
+    }
+    
+    .skill-bars {
+        padding: 0 1rem;
+    }
+    
+    .footer-social {
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+}
+
+/* 性能优化 */
+.smoothscroll {
+    scroll-behavior: smooth;
+}
+
+.overlay {
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.shadow-overlay {
+    opacity: 0.4;
+}
+
+/* 确保文字依然清晰可见 */
+.home-content__main h1,
+.home-content__main h3 {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* About Me 部分样式 */
+.s-about {
+    background-color: #ffffff;
+    padding: 6rem 0;
+}
+
+/* Work Experience 部分样式 */
+.about-content--timeline {
+    padding: 6rem 0;
+    background-color: #ffffff;
+}
+
+/* 时间轴容器调整 */
+.timeline {
+    padding-right: 2rem;
+}
+
+/* 照片样式 */
+.profile-image {
+    position: sticky;
+    top: 100px;
+    margin-top: 2rem;
+}
+
+.profile-image img {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    object-fit: cover;
+}
+
+/* 移动端适配 */
+@media screen and (max-width: 768px) {
+    .profile-image {
+        position: relative;
+        top: 0;
+        margin: 3rem auto;
+        text-align: center;
+    }
+
+    .profile-image img {
+        max-width: 300px;
+    }
+
+    .timeline {
+        padding-right: 0;
+    }
+}
+
+/* 确保section之间的过渡平滑 */
+.section-intro {
+    margin-bottom: 4rem;
+}
+
+.section-intro h1 {
+    color: var(--secondary-color);
+    font-size: 3.6rem;
+    line-height: 1.25;
+    margin-bottom: 1.2rem;
+}
+
+.has-bottom-sep {
+    position: relative;
+    height: 1px;
+    margin: 0 auto 4rem;
+}
+
+.has-bottom-sep::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 1px;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.about-content {
+    margin-bottom: 0;
+    padding-bottom: 3rem;
+}
+
+/* 调整移动端显示 */
+@media screen and (max-width: 768px) {
+    .s-about,
+    .about-content--timeline {
+        padding: 4rem 0;
+    }
+    .section-intro h1 {
+        font-size: 2.8rem;
+    }
+}
+
+/* 时间轴样式 */
+.timeline {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.timeline__block {
+    position: relative;
+    padding-left: 60px;
+    margin-bottom: 3rem;
+}
+
+.timeline__bullet {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    background-color: #333333;
+}
+
+.timeline__block::before {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 0;
+    height: 100%;
+    width: 1px;
+    background-color: rgba(51, 51, 51, 0.2);
+}
+
+.timeline__header {
+    margin-bottom: 1.5rem;
+}
+
+.timeline__timeframe {
+    color: #333333;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
+
+.timeline__header h3 {
+    margin-bottom: 0.5rem;
+}
+
+.timeline__header h5 {
+    color: var(--secondary-color);
+    font-size: 1rem;
+}
+
+.timeline__desc {
+    color: var(--text-color);
+    line-height: 1.8;
+}
+
+/* 移动端适配 */
+@media screen and (max-width: 768px) {
+    .timeline {
+        padding: 0 1rem;
+    }
+
+    .timeline__block {
+        padding-left: 40px;
+    }
+
+    .timeline__header h3 {
+        font-size: 1.4rem;
+    }
+}
+
+/* 导航栏样式 */
+header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 0.5rem 0;
+}
+
+nav {
+    padding: 0;
+}
+
+nav ul {
+    display: flex;
+    justify-content: flex-end;
+    list-style: none;
+    margin: 0;
+    padding-right: 2rem;
+}
+
+nav ul li {
+    margin: 0 1.5rem;
+}
+
+.nav-link {
+    font-size: 1.6rem;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    line-height: 1;
+    padding: 0.3rem 0;
+}
+
+.text-white {
+    color: #ffffff;
+}
+
+.text-red {
+    color: #FF4B4B;
+}
+
+.nav-link:hover {
+    color: #af2b2b !important;
+}
+
+/* 当在工作经历区域时，其他导航链接保持白色 */
+.nav-link.text-white:hover {
+    color: #af2b2b;
+}
+
+/* 移动端适配 */
+@media screen and (max-width: 768px) {
+    nav ul li {
+        margin: 0 1rem;
+    }
+    
+    .nav-link {
+        font-size: 1.6rem;
+    }
+}
+
+/* 最后一个导航项不需要右边距 */
+nav ul li:last-child {
+    margin-right: 1rem;
+}
+
+/* 标题颜色 */
+h1, h2, h3, h4, h5, h6 {
+    color: #333333;
+}
+
+/* 链接悬停效果 */
+a:hover {
+    color: var(--link-hover-color);
+}
+
+/* 工作经验样式 */
+.work-item {
+    padding: 4rem 0;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.work-item:last-child {
+    border-bottom: none;
+}
+
+.work-item.reverse {
+    background-color: transparent;
+}
+
+.timeline__header h3 {
+    font-size: 2.4rem;
+    margin-bottom: 1rem;
+    color: #333333;
+}
+
+.timeline__header h5 {
+    font-size: 1.8rem;
+    color: #666666;
+    margin-bottom: 1.5rem;
+}
+
+.timeline__timeframe {
+    color: #333333;
+    font-size: 1.6rem;
+    margin-bottom: 0.5rem;
+}
+
+.timeline__desc p {
+    font-size: 1.6rem;
+    line-height: 1.8;
+    color: #333333;
+}
+
+.work-image {
+    margin: 2rem 0;
+}
+
+.work-image img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* 移动端适配 */
+@media screen and (max-width: 768px) {
+    .work-item {
+        padding: 3rem 0;
+    }
+    
+    .work-image {
+        margin: 1rem 0;
+    }
+    
+    .work-image img {
+        height: 200px;
+    }
+}
+
+/* 里程碑部分样式 */
+.s-milestones {
+    padding: 6rem 0;
+    background-color: #ffffff;
+}
+
+.milestone-intro,
+.milestone-outro {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 1.8rem;
+    line-height: 1.8;
+    margin-bottom: 4rem;
+}
+
+.milestone-timeline {
+    position: relative;
+    max-width: 1000px;
+    margin: 4rem auto;
+    padding: 0;
+}
+
+.milestone-timeline::before {
+    content: '';
+    position: absolute;
+    left: 40px;
+    width: 2px;
+    height: 100%;
+    background-color: #333333;
+}
+
+.milestone-item {
+    position: relative;
+    margin-bottom: 3rem;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+}
+
+.milestone-year {
+    background-color: #333333;
+    color: #ffffff;
+    padding: 0.8rem 1.5rem;
+    font-size: 1.8rem;
+    font-weight: 600;
+    position: absolute;
+    left: 40px;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    border-radius: 4px;
+    top: 50%;
+}
+
+.milestone-content {
+    width: 85%;
+    margin-left: 100px;
+    padding: 2rem;
+    background-color: #f8f8f8;
+    border-radius: 8px;
+}
+
+.milestone-content h4 {
+    color: #333333;
+    font-size: 1.8rem;
+    font-weight: 600;
+    display: inline;
+}
+
+.milestone-content p {
+    font-size: 1.8rem;
+    line-height: 1.6;
+    color: #333333;
+    display: inline;
+    margin-left: 0.5rem;
+}
+
+/* 移动端适配 */
+@media screen and (max-width: 768px) {
+    .milestone-timeline::before {
+        left: 20px;
+    }
+
+    .milestone-year {
+        left: 20px;
+        padding: 0.5rem 1rem;
+        font-size: 1.4rem;
+    }
+
+    .milestone-content {
+        width: 85%;
+        margin-left: 50px;
+        padding: 1.5rem;
+    }
+
+    .milestone-content h4 {
+        font-size: 1.6rem;
+    }
+}
+
+/* 标题样式 */
+.s-about h1 {
+    font-size: 3.6rem;
+    line-height: 1.25;
+    margin-bottom: 3rem;
+    color: #333333;
+}
+
+/* 介绍文字样式 */
+.lead {
+    font-size: 1.8rem;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.milestone-intro {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.milestone-intro p {
+    font-size: 1.8rem;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+}
+
+/* 统一文字样式 */
+.about-text p {
+    font-size: 1.8rem;
+    line-height: 1.8;
+    color: #333333;
+    margin-bottom: 2rem;
+}
+
+/* 文字容器样式 */
+.about-text {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* 统一标题样式 */
+.about-content--timeline h1,
+.s-about h1 {
+    font-size: 3.6rem;
+    line-height: 1.25;
+    margin-bottom: 3rem;
+    color: #333333;
+    text-align: center;
+}
+
+/* 统一分割线样式 */
+.has-bottom-sep {
+    position: relative;
+    height: 1px;
+    margin: 0 auto 4rem;
+}
+
+.has-bottom-sep::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 1px;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+/* 调整间距 */
+.about-content--timeline {
+    padding-top: 6rem;
+}
+
+/* 工作经验时间轴样式 */
+.work-timeline {
+    position: relative;
+    max-width: 1000px;
+    margin: 4rem auto;
+    padding: 0;
+}
+
+.work-timeline::before {
+    content: '';
+    position: absolute;
+    left: 40px;
+    width: 2px;
+    height: 100%;
+    background-color: #333333;
+}
+
+.work-item {
+    position: relative;
+    margin-bottom: 4rem;
+}
+
+.work-year {
+    background-color: #333333;
+    color: #ffffff;
+    padding: 0.8rem 1.5rem;
+    font-size: 1.8rem;
+    font-weight: 600;
+    position: absolute;
+    left: 40px;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    border-radius: 4px;
+    top: 2rem;
+}
+
+.work-content {
+    width: 85%;
+    margin-left: 100px;
+    padding: 2rem;
+}
+
+.work-content h3 {
+    font-size: 2rem;
+    color: #333333;
+    margin-bottom: 0.5rem;
+}
+
+.work-content h4 {
+    font-size: 1.8rem;
+    color: #666666;
+    margin-bottom: 0.5rem;
+}
+
+.work-content h5 {
+    font-size: 1.6rem;
+    color: #888888;
+    margin-bottom: 1rem;
+}
+
+.work-content p {
+    font-size: 1.6rem;
+    line-height: 1.6;
+    color: #333333;
+    margin-bottom: 1.5rem;
+}
+
+.work-content ul {
+    margin-left: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.work-content ul li {
+    font-size: 1.6rem;
+    line-height: 1.6;
+    color: #333333;
+    margin-bottom: 0.5rem;
+}
+
+.sub-position {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(0,0,0,0.1);
+}
+
+/* 移动端适配 */
+@media screen and (max-width: 768px) {
+    .work-timeline::before {
+        left: 20px;
+    }
+
+    .work-year {
+        left: 20px;
+        padding: 0.5rem 1rem;
+        font-size: 1.4rem;
+    }
+
+    .work-content {
+        width: 85%;
+        margin-left: 50px;
+        padding: 1.5rem;
+    }
+}

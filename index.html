@@ -9,9 +9,25 @@
     <!--- basic page needs
     ================================================== -->
     <meta charset="utf-8">
-    <title>IndeedInvest - All About Investment</title>
-    <meta name="description" content="现居在东京的金融从业人员，这个网站主要记录我的个人资讯，包含工作经历、有兴趣的专案、日文学习笔记、程序设计及日常生活游记。透过分析自己的经验，希望更多人能够少走些弯路，多享受生活。我不仅仅是个金融从业人员，更是集产品经理、交易员、数据分析师、程序员于一身的一个特别个体。">
-    <meta name="author" content="Kao Cheng Hsuan, Johnny Kao, Gao Sheng Xuan, 高晟轩, 高晟軒">
+    <title>Johnny Kao | Tokyo Fintech Consultant | Digital Transformation Expert</title>
+    <meta name="description" content="Johnny Kao is a Tokyo-based fintech consultant specializing in digital transformation, retail banking, PE/VC, and Web3 blockchain. Expert in financial technology consulting, digital banking optimization, and blockchain strategy in Tokyo.">
+    <meta name="keywords" content="Tokyo fintech consultant, digital transformation, retail banking, PE/VC, Web3 blockchain, financial technology, digital banking, blockchain strategy, Tokyo consultant">
+    <meta name="author" content="Johnny Kao">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://johnnykao.com/">
+    <meta property="og:title" content="Johnny Kao | Tokyo Fintech Consultant">
+    <meta property="og:description" content="Expert fintech consulting services in Tokyo specializing in digital transformation, retail banking, PE/VC, and Web3 blockchain.">
+    <meta property="og:image" content="images/hero-bg.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://johnnykao.com/">
+    <meta property="twitter:title" content="Johnny Kao | Tokyo Fintech Consultant">
+    <meta property="twitter:description" content="Expert fintech consulting services in Tokyo specializing in digital transformation, retail banking, PE/VC, and Web3 blockchain.">
+    <meta property="twitter:image" content="images/hero-bg.jpg">
+
     <!-- mobile specific metas
     ================================================== -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,15 +36,48 @@
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/vendor.css">
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/custom.css">
     <!-- script
     ================================================== -->
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-    <script src="js/modernizr.js"></script>
-    <script src="js/pace.min.js"></script>
+    <script src="js/modernizr.js" defer></script>
+    <script src="js/pace.min.js" defer></script>
     <!-- favicons
     ================================================== -->
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <!-- 结构化数据 -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Johnny Kao",
+      "jobTitle": "Senior Fintech Consultant",
+      "url": "https://johnnykao.com",
+      "sameAs": [
+        "https://linkedin.johnnykao.com/"
+      ],
+      "knowsAbout": ["Digital Transformation", "Retail Banking", "PE/VC", "Web3 Blockchain", "Fintech"],
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Boston Consulting Group (BCG)",
+        "location": "Tokyo"
+      }
+    }
+    </script>
+    <!-- 预加载关键资源 -->
+    <link rel="preload" href="js/jquery-3.2.1.min.js" as="script">
+    <link rel="preload" href="js/main.js" as="script">
+
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-J03Z8DF9NX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-J03Z8DF9NX');
+</script>
 </head>
 
 <body id="top">
@@ -40,11 +89,9 @@
         </div> -->
         <nav class="header-nav-wrap">
             <ul class="header-nav">
-                <li class="current"><a class="smoothscroll" href="#home" title="home">首頁</a></li>
-                <li><a class="smoothscroll" href="#about" title="about">關於我</a></li>
-                <!-- <li><a class="smoothscroll" href="#works" title="works">Works</a></li> -->
-                <!-- <li><a href="https://indeedinvest.info/blog/" title="blog" target="_blank">企鵝旅行手札</a></li> -->
-                <!-- <li><a class="smoothscroll" href="#contact" title="contact">聯繫我</a></li> -->
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#about" class="nav-link">About Me</a></li>
+                <li><a href="#work-experience" class="nav-link">Work Experience</a></li>
             </ul>
         </nav>
         <a class="header-menu-toggle" href="#0"><span>選單</span></a>
@@ -58,16 +105,14 @@
             <div class="row home-content__main">
                 <h3>Hello There</h3>
                 <h1>
-                    I am Johnny Kao. <br>
-                    An investor <br>
-                    based in Tokyo.
+                    I am Johnny Kao <br>
                 </h1>
                 <div class="home-content__buttons">
 <!--                     <a href="https://indeedinvest.info/blog/" class="btn btn--stroke" target="_blank">
                         企鵝旅行手札
                     </a> -->
-                    <a href="#about" class="smoothscroll btn btn--stroke">
-                        關於我
+                    <a href="https://linkedin.johnnykao.com/" class="btn btn--stroke" target="_blank">
+                        LinkedIn
                     </a>
                 </div>
                 <div class="home-content__scroll">
@@ -77,203 +122,258 @@
                 </div>
             </div>
         </div> <!-- end home-content -->
-        <ul class="home-social">
-            <li>
-                <a rel="external nofollow" href="https://www.facebook.com/johnny.kao.35"><i class="im im-facebook" aria-hidden="true"></i><span>Facebook</span></a>
-            </li>
-            <li>
-                <a rel="external nofollow" href="https://github.com/Johnny-Kao"><i class="im im-github" aria-hidden="true"></i><span>Github</span></a>
-            </li>
-            <li>
-                <a rel="external nofollow" href="https://www.linkedin.com/in/gaoshengxuan/"><i class="im im-linkedin" aria-hidden="true"></i><span>Lindedin</span></a>
-            </li>
-        </ul>
-        <!-- end home-social -->
     </section> <!-- end s-home -->
     <!-- about
     ================================================== -->
     <section id="about" class="s-about target-section">
-        <div class="row narrow section-intro has-bottom-sep">
-			<div class="col-full text-center">
-                <h3></h3>
-                <h1>More About Me</h1>
-                <p class="lead">現居東京的金融從業人員，致力於將金融、數據及科技做完美結合<br>
-                    平時跑步探險城市的大小事，懶得動時就待在咖啡廳寫代碼</p>
+        <div class="row narrow text-center">
+            <div class="col-full">
+                <h1>About Me</h1>
             </div>
         </div>
-        <div class="row about-content">
+        
+        <div class="row narrow has-bottom-sep">
+            <!-- 分割线会显示在这里 -->
+        </div>
+
+        <div class="row narrow">
+			<div class="col-full text-center">
+                <div class="about-text">
+                    
+                    <p>As a professional spanning the fields of financial technology and investment, I have always believed:
+
+<bold>The true core lies not in the technology itself, but in creating products and services that address real-life pain points and genuinely improve people's lives.</bold>
+
+This conviction drives me to continuously step out of my comfort zone, plan ahead for the future, and explore cutting-edge fields that are yet to fully mature at every stage.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 时间轴部分 -->
+<div class="row">
+    <div class="col-full">
+        <div class="milestone-timeline">
+            <div class="milestone-item">
+                <div class="milestone-year">2025</div>
+                <div class="milestone-content">
+                    <h4>To Be Continued:</h4>
+                    <p>…</p>
+                </div>
+            </div>
+
+            <div class="milestone-item">
+                <div class="milestone-year">2024</div>
+                <div class="milestone-content">
+                    <h4>Consulting Strategy:</h4>
+                    <p>Led strategic-level projects including digital transformation, AI adoption, future banking strategies, and the tokenization of real-world assets (RWAs)</p>
+                </div>
+            </div>
+
+            <div class="milestone-item">
+                <div class="milestone-year">2023</div>
+                <div class="milestone-content">
+                    <h4>Web3 Innovation:</h4>
+                    <p>Led multiple traditional financial institutions in adopting/exploring Web3 themes, including experimental projects in the metaverse, virtual payments, and cross-chain integration</p>
+                </div>
+            </div>
+
+            <div class="milestone-item">
+                <div class="milestone-year">2022</div>
+                <div class="milestone-content">
+                    <h4>Professional Contribution:</h4>
+                    <p>Authored the digital assets chapter for a globally recognized consulting firm's annual wealth report</p>
+                </div>
+            </div>
+
+            <div class="milestone-item">
+                <div class="milestone-year">2020</div>
+                <div class="milestone-content">
+                    <h4>Technical Achievement:</h4>
+                    <p>Self-written code was included in GitHub, becoming an Arctic Code Vault Contributor</p>
+                </div>
+            </div>
+
+            <div class="milestone-item">
+                <div class="milestone-year">2019</div>
+                <div class="milestone-content">
+                    <h4>Branchless Virtual Bank:</h4>
+                    <p>Led the product design and development roadmap planning for a branchless virtual bank, starting preparations about a year before Hong Kong issued virtual banking licenses</p>
+                </div>
+            </div>
+
+            <div class="milestone-item">
+                <div class="milestone-year">2018</div>
+                <div class="milestone-content">
+                    <h4>Digital Currency Trading Platform:</h4>
+                    <p>Led the SaaS transformation of a digital currency trading platform, upgrading from a "product-oriented" mindset to a "system-oriented" mindset</p>
+                </div>
+            </div>
+
+            <div class="milestone-item">
+                <div class="milestone-year">2017</div>
+                <div class="milestone-content">
+                    <h4>Sustainable Finance:</h4>
+                    <p>Participated in the design and construction of an ESG index for a well-known index company, proactively laying the groundwork for sustainable finance</p>
+                    <br>
+                    <h4>National Strategy:</h4>
+                    <p>Contributed to the national blockchain strategy design for an island nation in Oceania, covering legal system planning, technical architecture, and strategies for investment attraction and talent retention</p>
+                </div>
+            </div>
+
+            <div class="milestone-item">
+                <div class="milestone-year">2016</div>
+                <div class="milestone-content">
+                    <h4>Digital Citizen:</h4>
+                    <p>Became one of the first ten people in Taiwan to join Estonia's e-Residency program, personally engaging in an experimental project for decentralized digital citizenship</p>
+                </div>
+            </div>
+
+            <div class="milestone-item">
+                <div class="milestone-year">2015</div>
+                <div class="milestone-content">
+                    <h4>Digital Currency Debit Card:</h4>
+                    <p>Launched an innovative financial service combining blockchain, Bitcoin, and debit cards, becoming a pioneer in promoting Bitcoin applications in Taiwan</p>
+                </div>
+            </div>
+
+            <div class="milestone-item">
+                <div class="milestone-year">2013</div>
+                <div class="milestone-content">
+                    <h4>African Volunteer:</h4>
+                    <p>Traveled to Tunisia, Africa, to participate in medical volunteer services, realizing that human needs are the starting point of all innovation</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="milestone-outro">
+            <p>At every stage of the past, I chose to stay one step ahead of trends, observing the future from a human-centric perspective and transforming technology into impactful solutions. I believe that the core of leadership is not about commanding others, but about inspiring a shared vision and driving real change.</p>
+        </div>
+    </div>
+</div>
+</section>
+    <!-- Work Experience 部分 -->
+    <section id="work-experience" class="about-content--timeline">
+        <div class="row narrow text-center">
+            <div class="col-full">
+                <h1>Work Experience</h1>
+            </div>
+        </div>
+        
+        <div class="row narrow has-bottom-sep">
+            <!-- 分割线 -->
+        </div>
+
+        <div class="row about-content work-item">
+            <!-- BCG -->
             <div class="col-six tab-full left">
-				<h3>金融與科技的橋樑</h3>
-                <p>身為一個金融從業人員，熟悉會計稅務、金融投資，興趣寫編程，我一直在思考，究竟金融與科技是什麼樣的一個關係？直到經歷了產品經理的工作後，我才有了答案。 </p>
-                <p>金融的主要調節現在與未來資源的使用，其次是有效配置風險，隨著地緣政治和金融環境的複雜程度增加，科技技術就成為了一種輔助手段，讓人們可以從復雜的環境中，找到有效的模式。 </p>
-                </p>
-                <p>多數公司都在尋找 - 能與程序員溝通合作，同時了解財務會計、公司治理等專業知識，最終建立可實現業務目標的人才。 </p>
-                <p>同時具有雙重背景的我，能夠利用我的專業知識，幫助公司找到最合適的業務目標，擬定戰略，提出落定實施計劃，確保公司能夠達成最終目的。 </p>
+                <div class="timeline__block">
+                    <div class="timeline__header">
+                        <p class="timeline__timeframe">November 2021 - Present</p>
+                        <h3>Boston Consulting Group (BCG)</h3>
+                        <h5>Senior Analyst | Retail Banking · Payment · Web3 | Tokyo</h5>
+                    </div>
+                    <div class="timeline__desc">
+                        <p>Drive impact on long-term strategic initiatives, digital transformation, AI adoption, and innovation projects in financial institutions, leveraging expertise in retail banking, payments, and Web3.</p>
+                    </div>
+                </div>
             </div>
             <div class="col-six tab-full right">
-                <h3>I'm familiar with...</h3>
-                <ul class="skill-bars">
-					<li>
-                        <div class="progress percent100"><span>100%</span></div>
-                        <strong>產品設計</strong>
-                    </li>
-                    <li>
-                        <div class="progress percent85"><span>85%</span></div>
-                        <strong>投資分析</strong>
-                    </li>
-                    <li>
-                        <div class="progress percent70"><span>70%</span></div>
-                        <strong>編程</strong>
-                    </li>
-                    <li>
-                        <div class="progress percent75"><span>75%</span></div>
-                        <strong>財務會計</strong>
-                    </li>
-                    <li>
-                        <div class="progress percent80"><span>80%</span></div>
-                        <strong>戰略投資</strong>
-                    </li>
-                    <li>
-                        <div class="progress percent95"><span>95%</span></div>
-                        <strong>區塊鏈</strong>
-                    </li>
-                </ul>
+                <div class="work-image">
+                    <img src="images/bcg.jpg" alt="BCG Tokyo Office - Johnny Kao's current workplace as a Senior Fintech Consultant">
+                </div>
             </div>
-        </div> <!-- end about-content -->
-        <div class="row about-content about-content--timeline">
-            <div class="col-full text-center">
-                <h3>My Work Experience</h3>
             </div>
+
+        <div class="row about-content work-item">
+            <!-- SMTB -->
             <div class="col-six tab-full left">
-                <div class="timeline">
-
-
 					<div class="timeline__block">
-                        <div class="timeline__bullet"></div>
                         <div class="timeline__header">
-                            <p class="timeline__timeframe">OCTOBER 2019 - Present</p>
-                            <h3>三井住友信託銀行</h3>
-                            <h5>海外業務部 / 東京</h5>
+                        <p class="timeline__timeframe">September 2019 - November 2021</p>
+                        <h3>Sumitomo Mitsui Trust Bank Limited</h3>
+                        <h5>Associate | Global Business Planning and Coordination Department | Tokyo</h5>
                         </div>
                         <div class="timeline__desc">
-                            <p>設計海外支店法律合規事務，執行總部海外戰略規劃。
-                            </p>
-                        </div>
+                        <p>Enhanced BCP and risk management during COVID-19, cutting executive decision time by 30%, while supporting overseas branches with compliance, operations, and post-investment management.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-six tab-full right">
+                <div class="work-image">
+                    <img src="images/smtb.jpg" alt="Sumitomo Mitsui Trust Bank Limited Tokyo Office - Johnny Kao's previous workplace as an Associate">
+                </div>
+            </div>
                     </div>
 
-
+        <div class="row about-content work-item">
+            <!-- China Binary -->
+            <div class="col-six tab-full left">
                     <div class="timeline__block">
-                        <div class="timeline__bullet"></div>
                         <div class="timeline__header">
-                            <p class="timeline__timeframe">March 2018 - SEPTEMBER 2019</p>
-                            <h3>神州數字</h3>
-                            <h5>國際業務部 / 產品總監 / 北京</h5>
+                        <p class="timeline__timeframe">September 2017 - November 2019</p>
+                        <h3>China Binary Sale Technology Ltd</h3>
+                        <h5>Product Director | Online Banking & Digital Currency Trading Platform | Hong Kong</h5>
                         </div>
                         <div class="timeline__desc">
-                            <p>
-                                設計海外銀行系統框架，包含前中後台及核心系統及法律合規，支持全球跨洲跨國交易。主導數字貨幣交易所框架與支持系統設計，包含交易引擎、對賬系統、賬戶系統、錢包系統等。負責數字資產證券化項目設計（Security Token Offering)，並協助取得海外交易所牌照。設計某大洋洲國家區塊鏈產業國家戰略，部分已落地實施。
-                            </p>
+                        <p>Led the launch of a US-licensed digital bank and a SaaS-based cryptocurrency exchange, overseeing product development, regulatory approvals, and market expansion. Built and scaled teams, implemented key financial systems, and optimized liquidity strategies. Drove a 19x increase in exchange members within a week through growth hacking campaigns.</p>
                         </div>
-                    </div> <!-- end timeline__block -->
-                    <div class="timeline__block">
-                        <div class="timeline__bullet"></div>
-                        <div class="timeline__header">
-                            <p class="timeline__timeframe">April 2017 - June 2017</p>
-                            <h3>京東金融</h3>
-                            <h5>戰略投資部 / 助理研究員 - 實習 / 北京</h5>
                         </div>
-                        <div class="timeline__desc">
-                            <p>
-                                投前市場分析調查，分析金融、電子支付、人工智能產業，並進行投資項目篩選。投資中期，定時追踪競爭對手投資佈局、海外股權結構研究,包​​含海外投資主體、投資份額比例、投資所在地法規分析，隨時更新投資組合配比。其中協助東南亞支付項目、國內知名信用卡金融服務（已上市）及數據服務機構等投資項目進行。
-                            </p>
                         </div>
-                    </div> <!-- end timeline__block -->
-                </div> <!-- end timeline -->
-            </div> <!-- end left -->
             <div class="col-six tab-full right">
-                <div class="timeline">
-                    <div class="timeline__block">
-                        <div class="timeline__bullet"></div>
-                        <div class="timeline__header">
-                            <p class="timeline__timeframe">Febuary 2017 - March 2017</p>
-                            <h3>MSCI</h3>
-                            <h5>ESG 部門 / 企業參與篩選分析師 - 實習 / 北京</h5>
-                        </div>
-                        <div class="timeline__desc">
-                            <p>
-                                從將近50 家海外公司約100 份英文財務報表中，提取環境、社會及公司治理等信息，以Top Down 的分析方式結構公司收入組成，辨識投資風險後，最終與菲律賓、印度等分公司跨國合作，建立ESG 標準，協助機構投資人將ESG 因素納入投資決策。
-                            </p>
-                        </div>
-                    </div> <!-- end timeline__block -->
-                    <div class="timeline__block">
-                        <div class="timeline__bullet"></div>
-                        <div class="timeline__header">
-                            <p class="timeline__timeframe">July 2015 - July 2017</p>
-                            <h3>WageCan Limited</h3>
-                            <h5>項目經理 / 財務經理 / 台北</h5>
-                        </div>
-                        <div class="timeline__desc">
-                            <p>
-                                參與公司創立過程，與多國團隊合作，建立處理量 2000+ /月 的客服標準流程。後續持續開展業務，與 MasterCard 合作發卡，完成數字貨幣兌換法幣業務。融資階段，獨立建立支持年營業額 6 千萬人民幣的完整賬簿系統，出具財務報表給投資人。最終使得應收成長 50% ，成功進入歐美市場。
-                            </p>
-                        </div>
-                    </div> <!-- end timeline__block -->
-                </div> <!-- end timeline -->
-            </div> <!-- end right -->
-        </div> <!-- end about-content timeline -->
-    </section> <!-- end about -->
-    <section id="contact" class="s-contact target-section" hidden>
-        <div class="overlay"></div>
-        <div class="row narrow section-intro">
-			<div class="col-full">
-                <h3>Contact</h3>
-                <h1>Say Hello.</h1>
-                <p class="lead">歡迎反饋及建議<br>如果對我有興趣，請聯繫我
-                    <h4 class="h06" style="color:#FFFFFF">Email</h4>
-                    <p><a href="mailto:at12885@gmail.com" style="color:#FFFFFF">at12885@gmail.com</a></p>
+                <div class="work-image">
+                    <img src="images/online-bank.jpg" alt="China Binary Sale Technology Ltd Hong Kong Office - Johnny Kao's previous workplace as Product Director">
+                </div>
             </div>
         </div>
-        <div class="row contact__main">
 
+        <div class="row about-content work-item">
+            <!-- WageCan -->
+            <div class="col-six tab-full left">
+                    <div class="timeline__block">
+                        <div class="timeline__header">
+                        <p class="timeline__timeframe">July 2015 - June 2017</p>
+                        <h3>WageCan</h3>
+                        <h5>Product Manager | Digital Payment | Taipei</h5>
+                        </div>
+                        <div class="timeline__desc">
+                        <p>Led product and expansion for WageCan, securing PE/VC funding and a MasterCard partnership for global crypto transactions. Drove EU & US adoption through growth hacking.</p>
+                    </div>
+                        </div>
+                        </div>
+            <div class="col-six tab-full right">
+                <div class="work-image">
+                    <img src="images/wagecan.jpg" alt="WageCan Taipei Office - Johnny Kao's previous workplace as Product Manager">
+                </div>
+            </div>
         </div>
-    </section> <!-- end s-contact -->
+    </section>
     <!-- footer
     ================================================== -->
     <footer>
         <div class="row">
             <div class="col-full">
-<!--                 <div class="footer-logo">
-                    <a class="footer-site-logo" href="#0"><img src="images/logo.png" alt="Homepage"></a>
-                </div> -->
                 <ul class="footer-social">
-                    <li><a rel="external nofollow" href="https://www.facebook.com/johnny.kao.35" target="_blank">
-                            <i class="im im-facebook" aria-hidden="true"></i>
-                            <span>Facebook</span>
-                        </a></li>
-                    <li><a rel="external nofollow" href="https://github.com/Johnny-Kao" target="_blank">
-                            <i class="im im-github" aria-hidden="true"></i>
-                            <span>Github</span>
-                        </a></li>
-                    <li><a rel="external nofollow" href="https://www.linkedin.com/in/gaoshengxuan/" target="_blank">
+                    <li>
+                        <a rel="external nofollow" href="https://linkedin.johnnykao.com/" target="_blank">
                             <i class="im im-linkedin" aria-hidden="true"></i>
                             <span>LinkedIn</span>
-                        </a></li>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="mailto:johnnykao.biz@gmail.com?subject=Greeting%20via%20johnnykao.com">
+                            <i class="im im-mail" aria-hidden="true"></i>
+                            <span>Email</span>
+                        </a>
+                    </li>
                 </ul>
+                <div class="go-top">
+                    <a class="smoothscroll" title="Back to Top" href="#top">
+                        <i class="im im-arrow-up" aria-hidden="true"></i>
+                    </a>
+                </div>
             </div>
         </div>
-        <div class="row footer-bottom">
-            <div class="col-twelve">
-                <div class="copyright">
-                    <span>© Copyright Hola 2017</span>
-                    <span>Design by <a rel="external nofollow" href="">styleshout</a></span>
-<!--                     <span>Host by <a rel="external nofollow" href="https://www.mypage.com/">William</a></span> -->
-                </div>
-                <div class="go-top">
-                    <a class="smoothscroll" title="Back to Top" href="#top"><i class="im im-arrow-up" aria-hidden="true"></i></a>
-                </div>
-            </div>
-        </div> <!-- end footer-bottom -->
-    </footer> <!-- end footer -->
+    </footer>
     <!-- photoswipe background
     ================================================== -->
     <div aria-hidden="true" class="pswp" role="dialog" tabindex="-1">
@@ -307,11 +407,10 @@
     <div id="preloader">
         <div id="loader"></div>
     </div>
-    <!-- Java Script
-    ================================================== -->
+    <!-- JavaScript -->
     <script src="js/jquery-3.2.1.min.js"></script>
-    <script src="js/plugins.js"></script>
-    <script src="js/main.js"></script>
+    <script src="js/plugins.js" defer></script>
+    <script src="js/main.js" defer></script>
 </body>
 
 </html>
