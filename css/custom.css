@@ -667,3 +667,29 @@ a:hover {
         padding: 1.5rem;
     }
 }
+/* === Normalize Work Experience Typography === */
+
+.timeline__desc p,
+.timeline__header h3,
+.timeline__header h5,
+.timeline__timeframe {
+    font-size: 1.8rem;
+    line-height: 1.8;
+    color: #333333;
+}
+
+/* Optional: adjust spacing for better visual rhythm */
+.timeline__header h3 {
+    margin-bottom: 1rem;
+}
+
+.timeline__header h5 {
+    margin-bottom: 1rem;
+    font-weight: 500;
+    color: #555;
+}
+
+.timeline__timeframe {
+    margin-bottom: 0.5rem;
+    color: #777;
+}
