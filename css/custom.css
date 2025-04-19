@@ -776,3 +776,8 @@ a:hover {
     height: auto;
     display: block;
 }
+@media screen and (min-width: 390px) {
+  .home-social {
+    display: block !important;
+  }
+}
