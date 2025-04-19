@@ -12,6 +12,7 @@
             
             
             
+            
             <![endif]-->
   <head>
     <!--- basic page needs
@@ -388,11 +389,22 @@
               </a>
             </li>
             <li>
-              <a href="mailto:johnnykao.biz@gmail.com?subject=Greeting%20via%20johnnykao.com">
+              <a href="#" id="email-link">
                 <i class="im im-mail" aria-hidden="true"></i>
                 <span>Email</span>
               </a>
             </li>
+            <script>
+              (function() {
+                const user = "johnnykao.biz";
+                const domain = "gmail.com";
+                const subject = "Greeting";
+                const email = user + "@" + domain;
+                const link = document.getElementById("email-link");
+                link.href = "mailto:" + email + "?subject=" + subject;
+                link.setAttribute("aria-label", email); // 無障礙改善（可選）
+              })();
+            </script>
           </ul>
           <div class="go-top">
             <a class="smoothscroll" title="Back to Top" href="#top">
