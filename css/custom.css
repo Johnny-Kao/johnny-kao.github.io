@@ -49,11 +49,11 @@ footer {
     .home-content__main h1 {
         font-size: 2.5rem;
     }
-    
+
     .skill-bars {
         padding: 0 1rem;
     }
-    
+
     .footer-social {
         flex-wrap: wrap;
         gap: 1rem;
@@ -165,10 +165,12 @@ footer {
 
 /* 调整移动端显示 */
 @media screen and (max-width: 768px) {
+
     .s-about,
     .about-content--timeline {
         padding: 4rem 0;
     }
+
     .section-intro h1 {
         font-size: 2.8rem;
     }
@@ -302,7 +304,7 @@ nav ul li {
     nav ul li {
         margin: 0 1rem;
     }
-    
+
     .nav-link {
         font-size: 1.6rem;
     }
@@ -314,7 +316,12 @@ nav ul li:last-child {
 }
 
 /* 标题颜色 */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     color: #333333;
 }
 
@@ -326,7 +333,7 @@ a:hover {
 /* 工作经验样式 */
 .work-item {
     padding: 4rem 0;
-    border-bottom: 1px solid rgba(0,0,0,0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .work-item:last-child {
@@ -379,11 +386,11 @@ a:hover {
     .work-item {
         padding: 3rem 0;
     }
-    
+
     .work-image {
         margin: 1rem 0;
     }
-    
+
     .work-image img {
         height: 200px;
     }
@@ -646,7 +653,7 @@ a:hover {
 .sub-position {
     margin-top: 2rem;
     padding-top: 2rem;
-    border-top: 1px solid rgba(0,0,0,0.1);
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 /* 移动端适配 */
@@ -667,6 +674,7 @@ a:hover {
         padding: 1.5rem;
     }
 }
+
 /* === Normalize Work Experience Typography === */
 
 .timeline__desc p,
@@ -717,54 +725,54 @@ a:hover {
 }*/
 
 .qr-modal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  z-index: 999;
-  background-color: rgba(0, 0, 0, 0.6);
-  justify-content: center;
-  align-items: center;
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    background-color: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
 }
 
 .qr-modal.show {
-  display: flex;
+    display: flex;
 }
 
 .qr-modal-inner {
-  background-color: #fff;
-  border-radius: 12px;
-  padding: 20px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
-  animation: popIn 0.3s ease;
-  width: 260px;
-  max-width: 90vw;
-  box-sizing: border-box;
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    animation: popIn 0.3s ease;
+    width: 260px;
+    max-width: 90vw;
+    box-sizing: border-box;
 }
 
 @keyframes popIn {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
 #qrcode canvas {
-  display: block;
-  margin: 0 auto;
-  width: 100% !important;
-  height: auto !important;
-  max-width: 100%;
-  padding: 0;
-  box-sizing: border-box;
+    display: block;
+    margin: 0 auto;
+    width: 100% !important;
+    height: auto !important;
+    max-width: 100%;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 #qrcode svg {
-  width: 100%;
-  height: auto;
-  display: block;
+    width: 100%;
+    height: auto;
+    display: block;
 }
-
