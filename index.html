@@ -9,6 +9,8 @@
         <!-->
 <html class="no-js" lang="en">
   <!--
+            
+            
             <![endif]-->
   <head>
     <!--- basic page needs
@@ -23,13 +25,13 @@
     <meta property="og:url" content="https://johnnykao.com/">
     <meta property="og:title" content="Johnny Kao | Tokyo Fintech Consultant">
     <meta property="og:description" content="Expert fintech consulting services in Tokyo specializing in digital transformation, retail banking, PE/VC, and Web3 blockchain.">
-    <meta property="og:image" content="images/hero-bg.jpg">
+    <meta property="og:image" content="https://johnnykao.com/images/hero-bg.jpg">
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://johnnykao.com/">
     <meta property="twitter:title" content="Johnny Kao | Tokyo Fintech Consultant">
     <meta property="twitter:description" content="Expert fintech consulting services in Tokyo specializing in digital transformation, retail banking, PE/VC, and Web3 blockchain.">
-    <meta property="twitter:image" content="images/hero-bg.jpg">
+    <meta property="twitter:image" content="https://johnnykao.com/images/hero-bg.jpg">
     <!-- mobile specific metas
     ================================================== -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -41,7 +43,7 @@
     <link rel="stylesheet" href="css/custom.css">
     <!-- script
     ================================================== -->
-    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
     <script src="js/modernizr.js" defer></script>
     <script src="js/pace.min.js" defer></script>
     <!-- favicons
@@ -90,7 +92,6 @@
     <!-- header
     ================================================== -->
     <header class="s-header">
-      <!--         <div class="header-logo"><a class="site-logo" href="index.html"><img src="images/logo.png" alt="Homepage"></a></div> -->
       <nav class="header-nav-wrap">
         <ul class="header-nav">
           <li>
@@ -120,9 +121,6 @@
           <h1> I am Johnny Kao <br>
           </h1>
           <div class="home-content__buttons">
-            <!--                     <a href="https://indeedinvest.info/blog/" class="btn btn--stroke" target="_blank">
-                        企鵝旅行手札
-                    </a> -->
             <a href="https://linkedin.johnnykao.com/" class="btn btn--stroke" target="_blank"> LinkedIn </a>
           </div>
           <div class="home-content__scroll">
@@ -133,6 +131,46 @@
         </div>
       </div>
       <!-- end home-content -->
+      <ul class="home-social">
+        <li>
+          <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://johnnykao.com" target="_blank" rel="noopener">
+            <i class="im im-linkedin"></i>
+            <span>Share via LinkedIn</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://twitter.com/intent/tweet?url=https://johnnykao.com&text=Check%20out%20Johnny%20Kao's%20Fintech%20Strategy!" target="_blank" rel="noopener">
+            <i class="im im-twitter"></i>
+            <span>Share via X</span>
+          </a>
+        </li>
+        <!-- <li><a href="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://johnnykao.com" target="_blank"><i class="im im-twitter"></i><span>QR Code</span></a></li> -->
+        <!-- 按鈕 -->
+        <li>
+          <a href="javascript:void(0);" onclick="openQRModal()">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor" width="20" height="20">
+              <path d="M3 9h6V3H3zm1-5h4v4H4zm1 1h2v2H5zm10 4h6V3h-6zm1-5h4v4h-4zm1 1h2v2h-2zM3 21h6v-6H3zm1-5h4v4H4zm1 1h2v2H5zm15 2h1v2h-2v-3h1zm0-3h1v1h-1zm0-1v1h-1v-1zm-10 2h1v4h-1v-4zm-4-7v2H4v-1H3v-1h3zm4-3h1v1h-1zm3-3v2h-1V3h2v1zm-3 0h1v1h-1zm10 8h1v2h-2v-1h1zm-1-2v1h-2v2h-2v-1h1v-2h3zm-7 4h-1v-1h-1v-1h2v2zm6 2h1v1h-1zm2-5v1h-1v-1zm-9 3v1h-1v-1zm6 5h1v2h-2v-2zm-3 0h1v1h-1v1h-2v-1h1v-1zm0-1v-1h2v1zm0-5h1v3h-1v1h-1v1h-1v-2h-1v-1h3v-1h-1v-1zm-9 0v1H4v-1zm12 4h-1v-1h1zm1-2h-2v-1h2zM8 10h1v1H8v1h1v2H8v-1H7v1H6v-2h1v-2zm3 0V8h3v3h-2v-1h1V9h-1v1zm0-4h1v1h-1zm-1 4h1v1h-1zm3-3V6h1v1z"></path>
+              <path fill="none" d="M0 0h24v24H0z"></path>
+            </svg>
+            <span>Share via QRCode</span>
+          </a>
+        </li>
+        <!-- Modal -->
+        <div id="qrModal" class="qr-modal" onclick="closeQRModal()">
+          <div class="qr-modal-inner" onclick="event.stopPropagation();">
+            <div id="qrcode"></div>
+          </div>
+        </div>
+        <li id="mobileShare" style="display: none;">
+          <a href="javascript:void(0);" onclick="shareLink()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7a2.48 2.48 0 000-.7l7.02-4.11a2.5 2.5 0 10-.91-1.45l-7.1 4.16a2.5 2.5 0 100 3.9l7.05 4.13a2.5 2.5 0 101.03-1.29z" />
+            </svg>
+            <span>Share via Link</span>
+          </a>
+        </li>
+      </ul>
+      <!-- end home-social -->
     </section>
     <!-- end s-home -->
     <!-- about
@@ -406,5 +444,53 @@
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="js/plugins.js" defer></script>
     <script src="js/main.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+    <script>
+      function openQRModal() {
+        const modal = document.getElementById("qrModal");
+        const qrBox = document.getElementById("qrcode");
+        modal.classList.add("show");
+        qrBox.innerHTML = "";
+        new QRCode(qrBox, {
+          text: "https://johnnykao.com",
+          width: 256,
+          height: 256,
+          useSVG: true
+        });
+      }
+
+      function closeQRModal() {
+        const modal = document.getElementById("qrModal");
+        modal.classList.remove("show");
+      }
+      // 按 ESC 關閉
+      window.addEventListener("keydown", function(e) {
+        if (e.key === "Escape") closeQRModal();
+      });
+      // ✅ 新增：滑動時自動關閉 QR 彈窗
+      let lastScroll = window.scrollY;
+      window.addEventListener("scroll", function() {
+        const currentScroll = window.scrollY;
+        const modal = document.getElementById("qrModal");
+        if (modal.classList.contains("show") && Math.abs(currentScroll - lastScroll) > 30) {
+          closeQRModal();
+        }
+        lastScroll = currentScroll;
+      });
+    </script>
+    <script>
+      // 顯示按鈕僅在支援 Web Share API 時
+      if (navigator.share) {
+        document.getElementById("mobileShare").style.display = "inline-block";
+      }
+
+      function shareLink() {
+        navigator.share({
+          title: 'Johnny Kao | Tokyo Fintech Consultant',
+          text: 'Check out Johnny Kao’s official site!',
+          url: 'https://johnnykao.com'
+        }).then(() => console.log('Shared successfully')).catch((error) => console.error('Error sharing:', error));
+      }
+    </script>
   </body>
 </html>

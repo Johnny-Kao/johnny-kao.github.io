@@ -693,3 +693,78 @@ a:hover {
     margin-bottom: 0.5rem;
     color: #777;
 }
+
+
+/*.qr-modal {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.6);
+}
+
+.qr-modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  width: fit-content;
+  margin: 15% auto;
+  cursor: pointer;
+}*/
+
+.qr-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  background-color: rgba(0, 0, 0, 0.6);
+  justify-content: center;
+  align-items: center;
+}
+
+.qr-modal.show {
+  display: flex;
+}
+
+.qr-modal-inner {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  animation: popIn 0.3s ease;
+  width: 260px;
+  max-width: 90vw;
+  box-sizing: border-box;
+}
+
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+#qrcode canvas {
+  display: block;
+  margin: 0 auto;
+  width: 100% !important;
+  height: auto !important;
+  max-width: 100%;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#qrcode svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
