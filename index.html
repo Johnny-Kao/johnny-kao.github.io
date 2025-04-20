@@ -580,5 +580,36 @@
         console.error('Error loading article.json:', err);
       });
     </script>
+    <script>
+  function detectOS(userAgent) {
+    if (/windows/i.test(userAgent)) return "Windows";
+    if (/macintosh|mac os x/i.test(userAgent)) return "macOS";
+    if (/android/i.test(userAgent)) return "Android";
+    if (/iphone|ipad|ipod/i.test(userAgent)) return "iOS";
+    if (/linux/i.test(userAgent)) return "Linux";
+    return "Unknown";
+  }
+
+  requestIdleCallback(() => {
+    const deviceInfo = {
+      language: navigator.language,
+      timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+      touchSupport: 'ontouchstart' in window,
+      screen: {
+        width: screen.width,
+        height: screen.height
+      },
+      userAgent: navigator.userAgent,
+      os: detectOS(navigator.userAgent)
+    };
+
+    fetch('https://device-logger.at12885.workers.dev', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(deviceInfo)
+    }).then(res => res.text()).then(console.log).catch(console.error);
+  });
+</script>
+
   </body>
 </html>
