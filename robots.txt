@@ -3,7 +3,6 @@ Allow: /
 Allow: /images/
 Allow: /css/
 Allow: /js/
-Disallow: /admin/
-Disallow: /private/
+Allow: /data
 
-Sitemap: https://johnnykao.com/sitemap.xml 
+Sitemap: https://johnnykao.com/sitemap.xml
