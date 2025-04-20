@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <!--[if lt IE 9 ]>
 <html class="no-js oldie" lang="en">
-    <![endif]-->
+  <![endif]-->
 <!--[if IE 9 ]>
-    <html class="no-js oldie ie9" lang="en">
-        <![endif]-->
+  <html class="no-js oldie ie9" lang="en">
+    <![endif]-->
 <!--[if (gte IE 9)|!(IE)]>
-        <!-->
+    <!-->
 <html class="no-js" lang="en">
   <!--
             
             
             
             
-            <![endif]-->
+            
+      <![endif]-->
   <head>
     <!--- basic page needs
     ================================================== -->
@@ -135,10 +136,10 @@
       <!-- end home-content -->
       <ul class="home-social">
         <li>
-    <a href="#" onclick="openLinkedInShare(event)" rel="noopener">
-      <i class="im im-linkedin"></i>
-      <span>Share via LinkedIn</span>
-    </a>
+          <a href="#" onclick="openLinkedInShare(event)" rel="noopener">
+            <i class="im im-linkedin"></i>
+            <span>Share via LinkedIn</span>
+          </a>
         </li>
         <li>
           <a href="https://twitter.com/intent/tweet?url=https://johnnykao.com&text=Check%20out%20Johnny%20Kao's%20Fintech%20Strategy!" target="_blank" rel="noopener">
@@ -174,30 +175,26 @@
       </ul>
       <!-- end home-social -->
       <script>
-  function openLinkedInShare(event) {
-    event.preventDefault();
-
-    const deepLink = 'linkedin://shareArticle?mini=true&url=https://johnnykao.com';
-    const fallbackUrl = 'https://www.linkedin.com/sharing/share-offsite/?url=https://johnnykao.com';
-
-    const now = Date.now();
-
-    // 嘗試透過 iframe 開啟 App
-    const iframe = document.createElement('iframe');
-    iframe.style.display = 'none';
-    iframe.src = deepLink;
-    document.body.appendChild(iframe);
-
-    // 設定 fallback：如果 App 沒反應，就用網頁版
-    setTimeout(() => {
-      const elapsed = Date.now() - now;
-      if (elapsed < 1600) {
-        window.location.href = fallbackUrl;
-      }
-      document.body.removeChild(iframe);
-    }, 1500);
-  }
-</script>
+        function openLinkedInShare(event) {
+          event.preventDefault();
+          const deepLink = 'linkedin://shareArticle?mini=true&url=https://johnnykao.com';
+          const fallbackUrl = 'https://www.linkedin.com/sharing/share-offsite/?url=https://johnnykao.com';
+          const now = Date.now();
+          // 嘗試透過 iframe 開啟 App
+          const iframe = document.createElement('iframe');
+          iframe.style.display = 'none';
+          iframe.src = deepLink;
+          document.body.appendChild(iframe);
+          // 設定 fallback：如果 App 沒反應，就用網頁版
+          setTimeout(() => {
+            const elapsed = Date.now() - now;
+            if (elapsed < 1600) {
+              window.location.href = fallbackUrl;
+            }
+            document.body.removeChild(iframe);
+          }, 1500);
+        }
+      </script>
     </section>
     <!-- end s-home -->
     <!-- about
@@ -401,6 +398,7 @@
       </div>
     </section>
     </section>
+    </section>
     <!-- footer
     ================================================== -->
     <footer>
@@ -437,6 +435,11 @@
             </a>
           </div>
         </div>
+      </div>
+      <div class="copyright">
+        <span>©</span>
+        <span>Design by <a rel="external nofollow" href="#">styleshout</a>
+        </span>
       </div>
     </footer>
     <!-- photoswipe background
