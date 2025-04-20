@@ -580,7 +580,7 @@
         console.error('Error loading article.json:', err);
       });
     </script>
-    <script>
+<script>
   function detectOS(userAgent) {
     if (/windows/i.test(userAgent)) return "Windows";
     if (/macintosh|mac os x/i.test(userAgent)) return "macOS";
@@ -594,6 +594,7 @@
     const deviceInfo = {
       language: navigator.language,
       timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+      localTimeUTC: new Date().toISOString(), // ✅ 加上這行：UTC 格式時間
       touchSupport: 'ontouchstart' in window,
       screen: {
         width: screen.width,
@@ -610,6 +611,7 @@
     }).then(res => res.text()).then(console.log).catch(console.error);
   });
 </script>
+
 
   </body>
 </html>
