@@ -16,6 +16,7 @@
             
       
       
+      
       <![endif]-->
   <head>
     <!--- basic page needs
@@ -129,7 +130,7 @@
           <h1> I am Johnny Kao <br>
           </h1>
           <div class="home-content__buttons">
-            <a href="https://linkedin.johnnykao.com/" class="btn btn--stroke" target="_blank"> LinkedIn </a>
+            <a href="https://linkedin.johnnykao.com/?utm_source=homepage&utm_medium=button&utm_campaign=linkedin_cta" class="btn btn--stroke" target="_blank"> LinkedIn </a>
           </div>
           <div class="home-content__scroll">
             <a href="#about" class="scroll-link smoothscroll">
@@ -147,7 +148,7 @@
           </a>
         </li>
         <li>
-          <a href="https://twitter.com/intent/tweet?url=https://johnnykao.com&text=Check%20out%20Johnny%20Kao's%20Fintech%20Strategy!" target="_blank" rel="noopener">
+          <a href="https://twitter.com/intent/tweet?url=https://johnnykao.com%3Futm_source%3Dtwitter&utm_medium%3Dshare&utm_campaign%3Dsocial_share&text=Check%20out%20Johnny%20Kao's%20Fintech%20Strategy!" target="_blank" rel="noopener">
             <i class="im im-twitter"></i>
             <span>Share via X</span>
           </a>
@@ -183,7 +184,7 @@
         function openLinkedInShare(event) {
           event.preventDefault();
           const deepLink = 'linkedin://shareArticle?mini=true&url=https://johnnykao.com';
-          const fallbackUrl = 'https://www.linkedin.com/sharing/share-offsite/?url=https://johnnykao.com';
+          const fallbackUrl = 'https://www.linkedin.com/sharing/share-offsite/?url=https://johnnykao.com%3Futm_source%3Dlinkedin&utm_medium%3Dshare&utm_campaign%3Dsocial_share';
           const now = Date.now();
           // 嘗試透過 iframe 開啟 App
           const iframe = document.createElement('iframe');
@@ -426,7 +427,7 @@
         <div class="col-full">
           <ul class="footer-social">
             <li>
-              <a rel="external nofollow" href="https://linkedin.johnnykao.com/" target="_blank">
+              <a rel="external nofollow" href="https://linkedin.johnnykao.com/?utm_source=footer&utm_medium=icon&utm_campaign=linkedin_footer" target="_blank">
                 <i class="im im-linkedin" aria-hidden="true"></i>
                 <span>LinkedIn</span>
               </a>
@@ -515,7 +516,7 @@
         modal.classList.add("show");
         qrBox.innerHTML = "";
         new QRCode(qrBox, {
-          text: "https://johnnykao.com",
+          text: "https://johnnykao.com/?utm_source=qrcode&utm_medium=share&utm_campaign=offline_share",
           width: 256,
           height: 256,
           useSVG: true
@@ -551,7 +552,7 @@
         navigator.share({
           title: 'Johnny Kao | Tokyo Fintech Consultant',
           text: 'Check out Johnny Kao’s official site!',
-          url: 'https://johnnykao.com'
+          url: 'https://johnnykao.com/?utm_source=webshare&utm_medium=share&utm_campaign=mobile_share'
         }).then(() => console.log('Shared successfully')).catch((error) => console.error('Error sharing:', error));
       }
     </script>
@@ -561,15 +562,16 @@
         data.forEach(article => {
           const html = `
           
+                                                                
                                                                 <article class="col-block">
                                                                   <div class="blog-date">
                                                                     <a href="#">${article.date}</a>
                                                                   </div>
                                                                   <h2 class="h01">
-                                                                    <a href="${article.url}" target="_blank">${article.title}</a>
+                                                                    <a href="${article.url}?utm_source=homepage&utm_medium=blog_list&utm_campaign=read_article" target="_blank">${article.title}</a>
                                                                   </h2>
                                                                   <p>${article.summary}</p>
-                                                                  <a href="${article.url}" class="btn btn--small readmore" target="_blank">Read More</a>
+                                                                  <a href="${article.url}?utm_source=homepage&utm_medium=blog_list&utm_campaign=read_article" class="btn btn--small readmore" target="_blank">Read More</a>
                                                                 </article>
         `;
           container.insertAdjacentHTML('beforeend', html);
