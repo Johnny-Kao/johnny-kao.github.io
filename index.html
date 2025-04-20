@@ -15,6 +15,7 @@
             
             
       
+      
       <![endif]-->
   <head>
     <!--- basic page needs
@@ -403,25 +404,21 @@
     </section>
     </section>
     </section>
-<section id="article" class="s-blog target-section" style="padding-top: 0px; padding-bottom: 0px;">
-  <div class="row narrow text-center">
-    <div class="col-full">
-      <h2>Article</h2>
-    </div>
-  </div>
-
-  <div class="row narrow has-bottom-sep"></div>
-
-  <div class="row blog-content">
-    <div class="col-full">
-      <div id="article-list" class="blog-list block-1-2 block-tab-full">
-        <!-- JavaScript 會將文章插入這裡 -->
+    <section id="article" class="s-blog target-section" style="padding-top: 0px; padding-bottom: 0px;">
+      <div class="row narrow text-center">
+        <div class="col-full">
+          <h2>Article</h2>
+        </div>
       </div>
-    </div>
-  </div>
-</section>
-
-
+      <div class="row narrow has-bottom-sep"></div>
+      <div class="row blog-content">
+        <div class="col-full">
+          <div id="article-list" class="blog-list block-1-2 block-tab-full">
+            <!-- JavaScript 會將文章插入這裡 -->
+          </div>
+        </div>
+      </div>
+    </section>
     <!-- footer
     ================================================== -->
     <footer>
@@ -559,30 +556,27 @@
       }
     </script>
     <script>
-  fetch('https://johnnykao.com/data/article.json')
-    .then(res => res.json())
-    .then(data => {
-      const container = document.getElementById('article-list');
-      data.forEach(article => {
-        const html = `
-          <article class="col-block">
-            <div class="blog-date">
-              <a href="#">${article.date}</a>
-            </div>
-            <h2 class="h01">
-              <a href="${article.url}" target="_blank">${article.title}</a>
-            </h2>
-            <p>${article.summary}</p>
-            <a href="${article.url}" class="btn btn--small readmore" target="_blank">Read More</a>
-          </article>
+      fetch('https://johnnykao.com/data/article.json').then(res => res.json()).then(data => {
+        const container = document.getElementById('article-list');
+        data.forEach(article => {
+          const html = `
+          
+                                                                <article class="col-block">
+                                                                  <div class="blog-date">
+                                                                    <a href="#">${article.date}</a>
+                                                                  </div>
+                                                                  <h2 class="h01">
+                                                                    <a href="${article.url}" target="_blank">${article.title}</a>
+                                                                  </h2>
+                                                                  <p>${article.summary}</p>
+                                                                  <a href="${article.url}" class="btn btn--small readmore" target="_blank">Read More</a>
+                                                                </article>
         `;
-        container.insertAdjacentHTML('beforeend', html);
+          container.insertAdjacentHTML('beforeend', html);
+        });
+      }).catch(err => {
+        console.error('Error loading article.json:', err);
       });
-    })
-    .catch(err => {
-      console.error('Error loading article.json:', err);
-    });
-</script>
-
+    </script>
   </body>
 </html>
