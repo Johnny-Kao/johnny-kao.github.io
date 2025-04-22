@@ -595,7 +595,7 @@
         const deviceInfo = {
           language: navigator.language,
           timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-          localTimeUTC: new Date().toISOString(), // ✅ 加上這行：UTC 格式時間
+          localTimeUTC: new Date().toISOString(), 
           touchSupport: 'ontouchstart' in window,
           screen: {
             width: screen.width,
