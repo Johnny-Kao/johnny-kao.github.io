@@ -17,6 +17,13 @@
   </url>
 
   <url>
+    <loc>https://johnnykao.com/data/substack.json</loc>
+    <lastmod>2026-04-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <url>
     <loc>https://johnnykao.com/llms.txt</loc>
     <lastmod>2026-04-05</lastmod>
     <changefreq>weekly</changefreq>
