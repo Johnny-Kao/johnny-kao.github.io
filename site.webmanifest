@@ -1,0 +1,24 @@
+{
+  "id": "/",
+  "name": "Johnny Kao",
+  "short_name": "Johnny Kao",
+  "description": "Official personal website of Johnny Kao, focused on private wealth, stewardship, discretion, and cross-border judgment.",
+  "lang": "en",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#F7F4EF",
+  "theme_color": "#1B2A3B",
+  "icons": [
+    {
+      "src": "images/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "images/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

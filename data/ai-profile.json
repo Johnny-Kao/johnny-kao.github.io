@@ -1,0 +1,43 @@
+{
+  "entity_type": "person_profile",
+  "name": "Johnny Kao",
+  "primary_name": "Johnny Kao",
+  "url": "https://johnnykao.com/",
+  "site_name": "Johnny Kao",
+  "language": "en",
+  "available_languages": [
+    "English",
+    "Mandarin Chinese",
+    "Japanese"
+  ],
+  "summary": "Johnny Kao is a cross-border finance and strategy professional shaped by trust-sensitive institutions, strategic work across global markets, and private wealth environments.",
+  "current_positioning": [
+    "Private wealth",
+    "Stewardship",
+    "Discretion",
+    "Cross-border judgment"
+  ],
+  "background_areas": [
+    "Trust banking",
+    "Strategy consulting",
+    "Digital finance",
+    "Digital assets",
+    "Capital and stakeholder alignment"
+  ],
+  "geographic_context": [
+    "Asia",
+    "Europe"
+  ],
+  "audience_context": [
+    "Private wealth environments",
+    "Family office contexts",
+    "High-trust decision environments"
+  ],
+  "primary_sources": {
+    "website": "https://johnnykao.com/",
+    "linkedin": "https://www.linkedin.com/in/johnnykao-finance/",
+    "newsletter": "https://johnnykao.substack.com/about",
+    "articles_json": "https://johnnykao.com/data/substack.json",
+    "articles_fallback_json": "https://johnnykao.com/data/article.json"
+  }
+}
