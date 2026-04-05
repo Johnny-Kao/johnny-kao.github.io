@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
-const RSS_URL = 'https://johnnykao.substack.com/feed';
+const RSS_URL = process.env.SUBSTACK_FEED_URL || 'https://johnnykao.substack.com/feed';
+const FEED_FILE = process.env.SUBSTACK_FEED_FILE || '';
 const OUTPUT_PATH = 'data/substack.json';
 const MAX_ITEMS = 5;
 
@@ -55,20 +56,35 @@ async function main() {
   const fs = await import('node:fs/promises');
 
   try {
-    const response = await fetch(RSS_URL, {
-      headers: {
-        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36',
-        'Accept': 'application/rss+xml, application/xml, text/xml;q=0.9, */*;q=0.8',
-        'Accept-Language': 'en-US,en;q=0.9',
-        'Referer': 'https://johnnykao.substack.com/'
-      }
-    });
+    let xml = '';
 
-    if (!response.ok) {
-      throw new Error(`Failed to fetch RSS: ${response.status} ${response.statusText}`);
+    if (FEED_FILE) {
+      try {
+        xml = await fs.readFile(FEED_FILE, 'utf8');
+        console.log(`Using local feed file: ${FEED_FILE}`);
+      } catch (error) {
+        console.warn(`Local feed file unavailable, falling back to live fetch: ${FEED_FILE}`);
+      }
     }
 
-    const xml = await response.text();
+    if (!xml) {
+      const response = await fetch(RSS_URL, {
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36',
+          'Accept': 'application/rss+xml, application/xml, text/xml;q=0.9, */*;q=0.8',
+          'Accept-Language': 'en-US,en;q=0.9',
+          'Referer': 'https://johnnykao.substack.com/'
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to fetch RSS: ${response.status} ${response.statusText}`);
+      }
+
+      xml = await response.text();
+      console.log(`Fetched live RSS from ${RSS_URL}`);
+    }
+
     const itemMatches = [...xml.matchAll(/<item>([\s\S]*?)<\/item>/gi)];
 
     const items = itemMatches
