@@ -548,6 +548,12 @@
       }
 
       function loadArticles() {
+        var articleList = document.getElementById('article-list');
+        if (!articleList) return;
+
+        var hasStaticArticles = articleList.querySelector('.writing-item');
+        if (hasStaticArticles) return;
+
         fetch('https://johnnykao.com/data/substack.json')
           .then(function(response) {
             if (!response.ok) throw new Error('substack.json request failed');
