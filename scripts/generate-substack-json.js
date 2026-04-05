@@ -52,47 +52,61 @@ function formatDate(dateString) {
 }
 
 async function main() {
-  const response = await fetch(RSS_URL, {
-    headers: {
-      'User-Agent': 'Johnny-Kao-Substack-Feed-Updater/1.0'
-    }
-  });
-
-  if (!response.ok) {
-    throw new Error(`Failed to fetch RSS: ${response.status} ${response.statusText}`);
-  }
-
-  const xml = await response.text();
-  const itemMatches = [...xml.matchAll(/<item>([\s\S]*?)<\/item>/gi)];
-
-  const items = itemMatches
-    .slice(0, MAX_ITEMS)
-    .map((match) => {
-      const block = match[1];
-      const title = stripHtml(decodeXmlEntities(extractTag(block, 'title')));
-      const link = stripHtml(decodeXmlEntities(extractTag(block, 'link')));
-      const descriptionRaw = decodeXmlEntities(extractTag(block, 'description'));
-      const description = truncateText(stripHtml(descriptionRaw), 280);
-      const pubDate = extractTag(block, 'pubDate');
-
-      return {
-        date: formatDate(pubDate),
-        title,
-        summary: description,
-        url: link
-      };
-    })
-    .filter((item) => item.title && item.url);
-
-  if (!items.length) {
-    throw new Error('No valid RSS items found.');
-  }
-
   const fs = await import('node:fs/promises');
-  await fs.mkdir('data', { recursive: true });
-  await fs.writeFile(OUTPUT_PATH, JSON.stringify(items, null, 2) + '\n', 'utf8');
 
-  console.log(`Generated ${OUTPUT_PATH} with ${items.length} items.`);
+  try {
+    const response = await fetch(RSS_URL, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36',
+        'Accept': 'application/rss+xml, application/xml, text/xml;q=0.9, */*;q=0.8',
+        'Accept-Language': 'en-US,en;q=0.9',
+        'Referer': 'https://johnnykao.substack.com/'
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch RSS: ${response.status} ${response.statusText}`);
+    }
+
+    const xml = await response.text();
+    const itemMatches = [...xml.matchAll(/<item>([\s\S]*?)<\/item>/gi)];
+
+    const items = itemMatches
+      .slice(0, MAX_ITEMS)
+      .map((match) => {
+        const block = match[1];
+        const title = stripHtml(decodeXmlEntities(extractTag(block, 'title')));
+        const link = stripHtml(decodeXmlEntities(extractTag(block, 'link')));
+        const descriptionRaw = decodeXmlEntities(extractTag(block, 'description'));
+        const description = truncateText(stripHtml(descriptionRaw), 280);
+        const pubDate = extractTag(block, 'pubDate');
+
+        return {
+          date: formatDate(pubDate),
+          title,
+          summary: description,
+          url: link
+        };
+      })
+      .filter((item) => item.title && item.url);
+
+    if (!items.length) {
+      throw new Error('No valid RSS items found.');
+    }
+
+    await fs.mkdir('data', { recursive: true });
+    await fs.writeFile(OUTPUT_PATH, JSON.stringify(items, null, 2) + '\n', 'utf8');
+
+    console.log(`Generated ${OUTPUT_PATH} with ${items.length} items.`);
+  } catch (error) {
+    try {
+      await fs.access(OUTPUT_PATH);
+      console.warn(`RSS fetch failed, keeping existing ${OUTPUT_PATH}: ${error.message}`);
+      process.exit(0);
+    } catch (accessError) {
+      throw error;
+    }
+  }
 }
 
 main().catch((error) => {
