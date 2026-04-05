@@ -7,22 +7,20 @@ const MAX_ITEMS = 5;
 function decodeXmlEntities(value) {
   return value
     .replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, '$1')
+    .replace(/&#x([0-9a-fA-F]+);/g, function(_, hex) {
+      var codePoint = parseInt(hex, 16);
+      return Number.isNaN(codePoint) ? _ : String.fromCodePoint(codePoint);
+    })
+    .replace(/&#([0-9]+);/g, function(_, dec) {
+      var codePoint = parseInt(dec, 10);
+      return Number.isNaN(codePoint) ? _ : String.fromCodePoint(codePoint);
+    })
     .replace(/&lt;/g, '<')
     .replace(/&gt;/g, '>')
     .replace(/&amp;/g, '&')
     .replace(/&quot;/g, '"')
     .replace(/&#39;/g, "'")
-    .replace(/&#x2018;/gi, "'")
-    .replace(/&#x2019;/gi, "'")
-    .replace(/&#x201C;/gi, '"')
-    .replace(/&#x201D;/gi, '"')
-    .replace(/&#8216;/g, "'")
-    .replace(/&#8217;/g, "'")
-    .replace(/&#8220;/g, '"')
-    .replace(/&#8221;/g, '"')
-    .replace(/&#8230;/g, '...')
-    .replace(/&#8212;/g, '-')
-    .replace(/&#8211;/g, '-');
+    .replace(/&apos;/g, "'");
 }
 
 function stripHtml(value) {
