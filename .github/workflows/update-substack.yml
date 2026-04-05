@@ -6,7 +6,7 @@ on:
       - master
   workflow_dispatch:
   schedule:
-    - cron: '0 2 * * *'
+    - cron: '30 3 * * *'
 
 permissions:
   contents: write
@@ -64,15 +64,21 @@ jobs:
         if: steps.changes.outputs.changed == 'true'
         run: node scripts/notify-indexnow.js
 
+      - name: Update substack sync meta
+        env:
+          CONTENT_CHANGED: ${{ steps.changes.outputs.changed }}
+          SUBSTACK_JSON_URL: https://substack-feed-worker.at12885.workers.dev/substack.json
+        run: node scripts/update-substack-sync-meta.js
+
       - name: Commit and push changes
         run: |
-          if git diff --quiet -- data/substack.json index.html sitemap.xml; then
+          if git diff --quiet -- data/substack.json index.html sitemap.xml data/substack-sync.json; then
             echo "No changes to commit."
             exit 0
           fi
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/substack.json index.html sitemap.xml
+          git add data/substack.json index.html sitemap.xml data/substack-sync.json
           git commit -m "chore: update substack content [skip substack]"
           git push
