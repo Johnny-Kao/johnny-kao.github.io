@@ -559,7 +559,10 @@
         if (!articleList) return;
 
         var hasStaticArticles = articleList.querySelector('.writing-item');
-        if (hasStaticArticles) return;
+        if (hasStaticArticles) {
+          console.info('[Articles] Using static HTML content.');
+          return;
+        }
 
         fetch('https://johnnykao.com/data/substack.json')
           .then(function(response) {
@@ -569,6 +572,7 @@
           .then(function(items) {
             var substackArticles = normalizeJsonArticles(items, 5);
             if (!substackArticles.length) throw new Error('No substack.json articles found');
+            console.info('[Articles] Rendered from substack.json fallback.');
             renderArticles(substackArticles);
           })
           .catch(function() {
@@ -580,6 +584,7 @@
               .then(function(items) {
                 var fallbackArticles = normalizeJsonArticles(items, 5);
                 if (!fallbackArticles.length) throw new Error('No JSON articles found');
+                console.info('[Articles] Rendered from article.json fallback.');
                 renderArticles(fallbackArticles);
               })
               .catch(function(error) {
