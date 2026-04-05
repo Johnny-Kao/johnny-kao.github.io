@@ -25,7 +25,7 @@ jobs:
         with:
           node-version: '22'
 
-      - name: Fetch Substack RSS
+      - name: Fetch Substack JSON from Worker
         continue-on-error: true
         run: |
           mkdir -p .cache
@@ -34,16 +34,14 @@ jobs:
             --retry-all-errors \
             --connect-timeout 20 \
             --max-time 90 \
-            -H "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36" \
-            -H "Accept: application/rss+xml, application/xml, text/xml;q=0.9, */*;q=0.8" \
-            -H "Accept-Language: en-US,en;q=0.9" \
-            -H "Referer: https://johnnykao.substack.com/" \
-            "https://johnnykao.substack.com/feed" \
-            -o .cache/substack-feed.xml
+            -H "Accept: application/json, text/plain;q=0.9, */*;q=0.8" \
+            "https://substack-feed-worker.at12885.workers.dev/substack.json" \
+            -o .cache/substack-feed.json
 
       - name: Generate substack.json
         env:
-          SUBSTACK_FEED_FILE: .cache/substack-feed.xml
+          SUBSTACK_FEED_FILE: .cache/substack-feed.json
+          SUBSTACK_JSON_URL: https://substack-feed-worker.at12885.workers.dev/substack.json
         run: node scripts/generate-substack-json.js
 
       - name: Render articles into index.html

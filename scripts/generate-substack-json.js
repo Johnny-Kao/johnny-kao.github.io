@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const RSS_URL = process.env.SUBSTACK_FEED_URL || 'https://johnnykao.substack.com/feed';
+const JSON_URL = process.env.SUBSTACK_JSON_URL || '';
 const FEED_FILE = process.env.SUBSTACK_FEED_FILE || '';
 const OUTPUT_PATH = 'data/substack.json';
 const MAX_ITEMS = 5;
@@ -56,64 +56,44 @@ async function main() {
   const fs = await import('node:fs/promises');
 
   try {
-    let xml = '';
+    let items = [];
 
     if (FEED_FILE) {
       try {
-        xml = await fs.readFile(FEED_FILE, 'utf8');
-        console.log(`Using local feed file: ${FEED_FILE}`);
+        const json = await fs.readFile(FEED_FILE, 'utf8');
+        items = JSON.parse(json);
+        console.log(`Using local JSON feed file: ${FEED_FILE}`);
       } catch (error) {
-        console.warn(`Local feed file unavailable, falling back to live fetch: ${FEED_FILE}`);
+        console.warn(`Local JSON feed file unavailable, falling back to remote fetch: ${FEED_FILE}`);
       }
     }
 
-    if (!xml) {
-      const response = await fetch(RSS_URL, {
+    if (!items.length && JSON_URL) {
+      const response = await fetch(JSON_URL, {
         headers: {
-          'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36',
-          'Accept': 'application/rss+xml, application/xml, text/xml;q=0.9, */*;q=0.8',
-          'Accept-Language': 'en-US,en;q=0.9',
-          'Referer': 'https://johnnykao.substack.com/'
+          'User-Agent': 'Johnny-Kao-Substack-JSON-Updater/1.0',
+          'Accept': 'application/json, text/plain;q=0.9, */*;q=0.8'
         }
       });
 
       if (!response.ok) {
-        throw new Error(`Failed to fetch RSS: ${response.status} ${response.statusText}`);
+        throw new Error(`Failed to fetch JSON: ${response.status} ${response.statusText}`);
       }
 
-      xml = await response.text();
-      console.log(`Fetched live RSS from ${RSS_URL}`);
+      items = await response.json();
+      console.log(`Fetched JSON from ${JSON_URL}`);
     }
 
-    const itemMatches = [...xml.matchAll(/<item>([\s\S]*?)<\/item>/gi)];
+    const normalizedItems = normalizeItems(items, MAX_ITEMS);
 
-    const items = itemMatches
-      .slice(0, MAX_ITEMS)
-      .map((match) => {
-        const block = match[1];
-        const title = stripHtml(decodeXmlEntities(extractTag(block, 'title')));
-        const link = stripHtml(decodeXmlEntities(extractTag(block, 'link')));
-        const descriptionRaw = decodeXmlEntities(extractTag(block, 'description'));
-        const description = truncateText(stripHtml(descriptionRaw), 280);
-        const pubDate = extractTag(block, 'pubDate');
-
-        return {
-          date: formatDate(pubDate),
-          title,
-          summary: description,
-          url: link
-        };
-      })
-      .filter((item) => item.title && item.url);
-
-    if (!items.length) {
-      throw new Error('No valid RSS items found.');
+    if (!normalizedItems.length) {
+      throw new Error('No valid JSON items found.');
     }
 
     await fs.mkdir('data', { recursive: true });
-    await fs.writeFile(OUTPUT_PATH, JSON.stringify(items, null, 2) + '\n', 'utf8');
+    await fs.writeFile(OUTPUT_PATH, JSON.stringify(normalizedItems, null, 2) + '\n', 'utf8');
 
-    console.log(`Generated ${OUTPUT_PATH} with ${items.length} items.`);
+    console.log(`Generated ${OUTPUT_PATH} with ${normalizedItems.length} items.`);
   } catch (error) {
     try {
       await fs.access(OUTPUT_PATH);
@@ -123,6 +103,18 @@ async function main() {
       throw error;
     }
   }
+}
+
+function normalizeItems(items, limit) {
+  return (items || [])
+    .slice(0, limit || MAX_ITEMS)
+    .map((item) => ({
+      date: formatDate(item.date || ''),
+      title: stripHtml(decodeXmlEntities((item.title || '').trim())),
+      summary: truncateText(stripHtml(decodeXmlEntities((item.summary || '').trim())), 280),
+      url: (item.url || '').trim()
+    }))
+    .filter((item) => item.title && item.url);
 }
 
 main().catch((error) => {
