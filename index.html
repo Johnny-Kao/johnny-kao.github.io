@@ -503,6 +503,119 @@
         return 'Unknown';
       }
 
+      function isLikelyBotOrAutomation(userAgent) {
+        return /bot|crawler|spider|headless|preview|facebookexternalhit|slurp|bingpreview|python|curl|wget|node|axios|postman/i.test(userAgent || '');
+      }
+
+      // Detect a lightweight client context for shareable URL tagging.
+      // We keep the vocabulary intentionally small and stable so the params:
+      // - are easy to reason about
+      // - stay idempotent across repeated runs
+      // - do not overlap with campaign attribution logic
+      function detectClientContext() {
+        var userAgent = navigator.userAgent || '';
+        var vendor = navigator.vendor || '';
+        var maxTouchPoints = navigator.maxTouchPoints || 0;
+        var width = Math.min(window.screen.width || window.innerWidth || 0, window.screen.height || window.innerHeight || 0);
+
+        var os = 'other';
+        if (/iphone|ipad|ipod/i.test(userAgent)) {
+          os = 'ios';
+        } else if (/android/i.test(userAgent)) {
+          os = 'android';
+        } else if (/windows/i.test(userAgent)) {
+          os = 'windows';
+        } else if (/macintosh|mac os x/i.test(userAgent)) {
+          os = 'macos';
+        } else if (/linux/i.test(userAgent)) {
+          os = 'linux';
+        }
+
+        var browser = 'other';
+        var isIOSWebKit = /iphone|ipad|ipod/i.test(userAgent);
+        if (/edg\//i.test(userAgent)) {
+          browser = 'edge';
+        } else if (/firefox|fxios/i.test(userAgent)) {
+          browser = 'firefox';
+        } else if (/crios|chrome/i.test(userAgent) && !/edg\//i.test(userAgent)) {
+          browser = 'chrome';
+        } else if ((/safari/i.test(userAgent) && !/chrome|crios|android|fxios|edg\//i.test(userAgent)) || (isIOSWebKit && /apple/i.test(vendor) && !/crios|fxios|edgios/i.test(userAgent))) {
+          browser = 'safari';
+        }
+
+        var device = 'other';
+        if (!isLikelyBotOrAutomation(userAgent)) {
+          var isTablet = /ipad/i.test(userAgent) || (/android/i.test(userAgent) && !/mobile/i.test(userAgent)) || (os === 'ios' && maxTouchPoints > 1 && /macintosh/i.test(userAgent));
+          var isMobile = !isTablet && (/iphone|ipod|android.*mobile|windows phone|mobile/i.test(userAgent) || (os === 'android' && width > 0 && width < 768));
+          var isDesktop = !isTablet && !isMobile && (os === 'macos' || os === 'windows' || os === 'linux');
+
+          if (isTablet) {
+            device = 'tablet';
+          } else if (isMobile) {
+            device = 'mobile';
+          } else if (isDesktop) {
+            device = 'desktop';
+          }
+        }
+
+        return {
+          ctx_device: device,
+          ctx_browser: browser,
+          ctx_os: os
+        };
+      }
+
+      // Merge ctx_* parameters into the current URL in place.
+      // Rules:
+      // - preserve unrelated query params
+      // - preserve hash fragments
+      // - replace existing ctx_* values with the latest detected context
+      // - do nothing if the URL already matches the intended state
+      function mergeContextParamsIntoCurrentUrl(context) {
+        if (!context || !history.replaceState) return;
+
+        var currentUrl = new URL(window.location.href);
+        var changed = false;
+
+        Object.keys(context).forEach(function(key) {
+          var nextValue = context[key];
+          if (!nextValue) return;
+          if (currentUrl.searchParams.get(key) !== nextValue) {
+            currentUrl.searchParams.set(key, nextValue);
+            changed = true;
+          }
+        });
+
+        if (!changed) return;
+
+        history.replaceState(history.state, document.title, currentUrl.pathname + currentUrl.search + currentUrl.hash);
+      }
+
+      // Keep canonical clean for SEO. The public URL may carry ctx_* parameters
+      // for user sharing context, but canonical should stay on the base page URL.
+      function updateCanonicalWithoutContextParams() {
+        var canonical = document.querySelector('link[rel="canonical"]');
+        if (!canonical) return;
+
+        var canonicalUrl = new URL(window.location.href);
+        canonicalUrl.searchParams.delete('ctx_device');
+        canonicalUrl.searchParams.delete('ctx_browser');
+        canonicalUrl.searchParams.delete('ctx_os');
+        canonicalUrl.search = '';
+        canonicalUrl.hash = '';
+
+        var nextHref = canonicalUrl.origin + canonicalUrl.pathname;
+        if (canonical.getAttribute('href') !== nextHref) {
+          canonical.setAttribute('href', nextHref);
+        }
+      }
+
+      function applyClientContextTagging() {
+        var context = detectClientContext();
+        mergeContextParamsIntoCurrentUrl(context);
+        updateCanonicalWithoutContextParams();
+      }
+
       function formatArticleDate(value) {
         var date = new Date(value);
         if (isNaN(date.getTime())) return value || '';
@@ -620,6 +733,10 @@
         }).catch(function(error) {
           console.error('Device logger error:', error);
         });
+
+        // Run URL context tagging after device logging has been kicked off so
+        // the logger captures the untouched initial environment first.
+        applyClientContextTagging();
       });
 
       loadArticles();
