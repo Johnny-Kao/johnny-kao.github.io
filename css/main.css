@@ -233,9 +233,9 @@
       inset: 0;
       background: linear-gradient(
         to right,
-        rgba(247,244,239,0.03) 0%,
-        rgba(27,42,59,0.06)   42%,
-        rgba(27,42,59,0.20)   100%
+        rgba(247,244,239,0.02) 0%,
+        rgba(27,42,59,0.04)   42%,
+        rgba(27,42,59,0.13)   100%
       );
       z-index: 1;
     }
@@ -245,8 +245,8 @@
       inset: 0;
       background: linear-gradient(
         to bottom,
-        transparent 68%,
-        rgba(27,42,59,0.11) 100%
+        transparent 72%,
+        rgba(27,42,59,0.07) 100%
       );
       z-index: 2;
     }
