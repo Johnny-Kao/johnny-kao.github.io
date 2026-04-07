@@ -1,33 +1,15 @@
-const VIEW_KEY = 'blackcatmeow';
-const ALLOWED_ORIGINS = new Set([
-  'https://johnnykao.com',
-  'https://www.johnnykao.com'
-]);
-
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
     const pathname = url.pathname;
     const query = url.searchParams;
-    const origin = request.headers.get('Origin') || '';
-    const cors = corsHeaders(origin);
 
     if (request.method === 'OPTIONS') {
-      if (!isAllowedOrigin(origin)) {
-        return new Response('⛔ Origin not allowed', { status: 403 });
-      }
-      return new Response(null, { status: 204, headers: cors });
+      return new Response(null, { status: 204, headers: corsHeaders() });
     }
 
     // 📊 GET /view
     if (request.method === 'GET' && pathname === '/view') {
-      if (query.get('key') !== VIEW_KEY) {
-        return new Response('⛔ Unauthorized', {
-          status: 403,
-          headers: { 'Content-Type': 'text/plain; charset=utf-8' }
-        });
-      }
-
       const date = query.get('date') || new Date().toISOString().slice(0, 10);
       const list = await env.LOGS_KV.list({ prefix: `log:${date}` });
 
@@ -45,34 +27,26 @@ export default {
       if (wantsJSON) {
         return new Response(JSON.stringify(results, null, 2), {
           status: 200,
-          headers: { ...cors, 'Content-Type': 'application/json' }
+          headers: { ...corsHeaders(), 'Content-Type': 'application/json' }
         });
       }
 
       // 回傳 HTML 表格畫面
       return new Response(renderHTML(results, date, query), {
         status: 200,
-        headers: { ...cors, 'Content-Type': 'text/html; charset=utf-8' }
+        headers: { ...corsHeaders(), 'Content-Type': 'text/html; charset=utf-8' }
       });
     }
 
     // 📨 POST /
     if (request.method === 'POST') {
-      if (!isAllowedOrigin(origin)) {
-        return new Response('⛔ Origin not allowed', {
-          status: 403,
-          headers: { ...cors, 'Content-Type': 'text/plain; charset=utf-8' }
-        });
-      }
-
       const today = new Date().toISOString().slice(0, 10);
       const counterKey = `counter:${today}`;
       const currentCount = parseInt(await env.LOGS_KV.get(counterKey)) || 0;
 
-      // Keep daily writes safely below KV free-plan write limits.
-      if (currentCount >= 400) {
+      if (currentCount >= 800) {
         return new Response('🚫 每日寫入上限已達，請明天再試', {
-          status: 429, headers: cors
+          status: 429, headers: corsHeaders()
         });
       }
 
@@ -82,7 +56,7 @@ export default {
         if (!data.localTimeUTC) data.localTimeUTC = new Date().toISOString();
       } catch {
         return new Response('❌ JSON 格式錯誤', {
-          status: 400, headers: cors
+          status: 400, headers: corsHeaders()
         });
       }
 
@@ -92,12 +66,12 @@ export default {
       await env.LOGS_KV.put(counterKey, (currentCount + 1).toString());
 
       return new Response('✅ 資料已記錄', {
-        status: 200, headers: cors
+        status: 200, headers: corsHeaders()
       });
     }
 
     return new Response('⛔ 路徑錯誤', {
-      status: 404, headers: cors
+      status: 404, headers: corsHeaders()
     });
   }
 };
@@ -114,23 +88,13 @@ function matchFilters(item, query) {
   return true;
 }
 
-function isAllowedOrigin(origin) {
-  return ALLOWED_ORIGINS.has(origin);
-}
-
 // ✅ CORS
-function corsHeaders(origin) {
-  const headers = {
+function corsHeaders() {
+  return {
+    'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'POST, OPTIONS, GET',
-    'Access-Control-Allow-Headers': 'Content-Type',
-    'Vary': 'Origin'
+    'Access-Control-Allow-Headers': 'Content-Type'
   };
-
-  if (isAllowedOrigin(origin)) {
-    headers['Access-Control-Allow-Origin'] = origin;
-  }
-
-  return headers;
 }
 
 // ✅ HTML 表格畫面產生
