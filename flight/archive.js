@@ -38,7 +38,7 @@ const DEFAULT_STATE = {
   airline: [],
   country: [],
   airport: "all",
-  showLabels: false,
+  showLabels: true,
   color: "year",
   projection: "normal",
   sort: "date-asc",
@@ -875,20 +875,55 @@ function legendKey(route) {
   }
 }
 
+/** Format date range as "2013 JULY 13 – AUGUST 24" (year shown once at front) */
+function formatTooltipDateRange(startLabel, endLabel) {
+  const parse = (label) => {
+    if (!label) return null;
+    const d = new Date(label);
+    return isNaN(d) ? null : d;
+  };
+  const s = parse(startLabel);
+  const e = endLabel && endLabel !== startLabel ? parse(endLabel) : null;
+  if (!s) return escapeHtml(startLabel || "");
+
+  const month = (d) => d.toLocaleDateString("en", { month: "long" }).toUpperCase();
+  const year  = s.getFullYear();
+  const sDay  = s.getDate();
+
+  if (!e) return `${year} ${month(s)} ${sDay}`;
+
+  const eDay  = e.getDate();
+  const eYear = e.getFullYear();
+
+  if (year !== eYear) {
+    return `${year} ${month(s)} ${sDay} – ${eYear} ${month(e)} ${eDay}`;
+  }
+  if (month(s) === month(e)) {
+    return `${year} ${month(s)} ${sDay} – ${eDay}`;
+  }
+  return `${year} ${month(s)} ${sDay} – ${month(e)} ${eDay}`;
+}
+
 function buildRouteTooltipHtml(props) {
   if (props.isMultiStop) {
-    // Journey-level tooltip
-    const dateRange = props.endDateLabel && props.endDateLabel !== props.dateLabel
-      ? `${escapeHtml(props.dateLabel)} – ${escapeHtml(props.endDateLabel)}`
-      : escapeHtml(props.dateLabel);
+    const dateRange = formatTooltipDateRange(props.dateLabel, props.endDateLabel);
+
+    // Route chain as individual airport badges
+    const chainBadges = (props.routeChain || "")
+      .split(/\s*→\s*/)
+      .filter(Boolean)
+      .map((code) => `<span class="map-tooltip-airport-badge">${escapeHtml(code)}</span>`)
+      .join('<span class="map-tooltip-chain-arrow">→</span>');
+
     return `<article class="map-tooltip-card">
       <div class="map-tooltip-header">
-        <div>
-          <p class="map-tooltip-kicker">${dateRange} · ${escapeHtml(String(props.legCount))} legs</p>
+        <div class="map-tooltip-header-main">
+          <p class="map-tooltip-kicker">${dateRange}</p>
           <h4>${escapeHtml(props.fromCode)} → ${escapeHtml(props.toCode)}</h4>
         </div>
+        <span class="map-tooltip-legs-badge">${escapeHtml(String(props.legCount))} Legs</span>
       </div>
-      <p class="map-tooltip-route-line">${escapeHtml(props.routeChain)}</p>
+      <div class="map-tooltip-chain">${chainBadges}</div>
       <div class="map-tooltip-rows">
         ${props.distanceKm
           ? `<div class="map-tooltip-row"><span>Total distance</span><strong>${escapeHtml(formatDistance(props.distanceKm))}</strong></div>`
@@ -898,23 +933,24 @@ function buildRouteTooltipHtml(props) {
           : ""}
       </div>
       ${props.note
-        ? `<section class="map-tooltip-note"><span class="map-tooltip-label">Notes</span><p>${escapeHtml(props.note)}</p></section>`
+        ? `<p class="map-tooltip-note-inline">✦ ${escapeHtml(props.note)}</p>`
         : ""}
     </article>`;
   }
 
-  // Single-leg tooltip (unchanged)
+  // Single-leg tooltip
   const routeTitle = `${escapeHtml(props.fromCode)} – ${escapeHtml(props.toCode)}`;
-  const meta = [props.dateLabel, props.airline, props.flightNumber].filter(Boolean).map(escapeHtml);
+  const dateStr = formatTooltipDateRange(props.dateLabel, null);
+  const meta = [dateStr, escapeHtml(props.airline || ""), escapeHtml(props.flightNumber || "")].filter(Boolean);
   const schedule = [];
-  if (props.departureTime) schedule.push(`Depart ${escapeHtml(formatTime(props.departureTime))}`);
-  if (props.arrivalTime) schedule.push(`Arrive ${escapeHtml(formatTime(props.arrivalTime))}`);
+  if (props.departureTime) schedule.push(`Dep ${escapeHtml(formatTime(props.departureTime))}`);
+  if (props.arrivalTime) schedule.push(`Arr ${escapeHtml(formatTime(props.arrivalTime))}`);
   const fromLine = escapeHtml(`${props.fromCity || props.fromCode} (${props.fromCode})`);
   const toLine = escapeHtml(`${props.toCity || props.toCode} (${props.toCode})`);
 
   return `<article class="map-tooltip-card">
     <div class="map-tooltip-header">
-      <div>
+      <div class="map-tooltip-header-main">
         <p class="map-tooltip-kicker">${meta.join(" · ")}</p>
         <h4>${routeTitle}</h4>
       </div>
@@ -927,10 +963,12 @@ function buildRouteTooltipHtml(props) {
       ${props.durationLabel
         ? `<div class="map-tooltip-row"><span>Scheduled</span><strong>${escapeHtml(props.durationLabel)}</strong></div>`
         : ""}
+      ${schedule.length
+        ? `<div class="map-tooltip-row"><span>Times</span><strong>${schedule.join(" · ")}</strong></div>`
+        : ""}
     </div>
-    ${schedule.length ? `<p class="map-tooltip-times">${schedule.join(" · ")}</p>` : ""}
     ${props.note
-      ? `<section class="map-tooltip-note"><span class="map-tooltip-label">Notes</span><p>${escapeHtml(props.note)}</p></section>`
+      ? `<p class="map-tooltip-note-inline">✦ ${escapeHtml(props.note)}</p>`
       : ""}
   </article>`;
 }
