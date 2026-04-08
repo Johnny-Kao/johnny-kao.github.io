@@ -400,6 +400,8 @@ body::before {
 }
 
 /* ── Sync button ── */
+.nav-sync-btn[hidden] { display: none; }
+
 .nav-sync-btn {
   display: inline-flex;
   align-items: center;
@@ -2292,7 +2294,7 @@ body::before {
 /* Note — italic, no label */
 .journey-headline {
   margin: 0;
-  color: rgba(27, 42, 59, 0.48);
+  color: rgba(27, 42, 59, 0.72);
   font-size: 0.8rem;
   font-style: italic;
   line-height: 1.5;
