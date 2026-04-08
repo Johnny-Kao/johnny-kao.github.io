@@ -399,6 +399,42 @@ body::before {
   border: 1.5px solid white;
 }
 
+/* ── Sync button ── */
+.nav-sync-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1.5px solid var(--warm-gray);
+  background: var(--ivory);
+  color: var(--muted);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: color 180ms ease, border-color 180ms ease, background 180ms ease;
+}
+
+.nav-sync-btn:hover {
+  background: var(--navy);
+  color: var(--ivory);
+  border-color: var(--navy);
+}
+
+.nav-sync-btn.is-syncing svg {
+  animation: spin 0.8s linear infinite;
+}
+
+.nav-sync-btn.is-sync-done {
+  border-color: #5c9e6e;
+  color: #5c9e6e;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
 .hero-grid {
   display: grid;
   grid-template-columns: 1.15fr 0.85fr;
