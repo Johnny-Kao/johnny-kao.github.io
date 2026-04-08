@@ -1,1 +1,4 @@
 .DS_Store
+
+device-logger/
+substack-feed-worker/
