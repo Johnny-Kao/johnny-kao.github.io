@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flight Statistics</title>
+    <meta
+      name="description"
+      content="Statistics dashboard for a personal flight archive."
+    />
+    <link rel="icon" href="https://johnnykao.com/favicon.ico" type="image/x-icon" />
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com"
+    />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css?v=20260409-1035" />
+  </head>
+  <body class="stats-body">
+    <div class="page-shell">
+      <header class="hero compact-hero">
+        <nav class="topbar">
+          <a class="brand" href="./index.html">
+            <span class="brand-mark">
+              <img src="https://johnnykao.com/favicon.ico" alt="Johnny Kao icon" />
+            </span>
+            <span class="brand-copy">
+              <strong>Statistics</strong>
+              <small>Patterns, return, and concentration</small>
+            </span>
+          </a>
+          <div class="nav-right">
+            <div class="nav-links">
+              <a class="nav-link" href="./index.html">Archive</a>
+              <a class="nav-link is-active" href="./stats.html">Statistics</a>
+            </div>
+            <button class="nav-login-btn" id="nav-login-btn" type="button" aria-label="Sign in">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="16" height="16" aria-hidden="true">
+                <circle cx="12" cy="8" r="4"/>
+                <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke-linecap="round"/>
+              </svg>
+            </button>
+          </div>
+        </nav>
+
+        <section class="hero-copy panel gradient-panel">
+          <p class="eyebrow">Statistical View</p>
+          <h1>A disciplined reading of movement over time.</h1>
+          <p class="hero-text">
+            This view isolates the routes, destinations, and repetitions that shaped the archive.
+          </p>
+        </section>
+      </header>
+
+      <main class="stats-grid">
+        <section class="panel stats-header-bar">
+          <section class="stats-summary" id="stats-summary"></section>
+          <div class="stats-scope-row">
+            <span class="stats-scope-label">Scope</span>
+            <div class="stats-scope-filters">
+              <div class="multi-select map-filter map-filter-year" id="stats-year-filter">
+                <button class="multi-select-button map-filter-button" id="stats-year-menu-button" type="button" aria-label="Year filter">
+                  <span class="map-filter-summary" id="stats-year-summary">All years</span>
+                  <strong>∨</strong>
+                </button>
+                <div class="multi-select-panel compact-select-panel" id="stats-year-options"></div>
+              </div>
+              <div class="multi-select map-filter map-filter-month" id="stats-month-filter">
+                <button class="multi-select-button map-filter-button" id="stats-month-menu-button" type="button" aria-label="Month filter">
+                  <span class="map-filter-summary" id="stats-month-summary">All months</span>
+                  <strong>∨</strong>
+                </button>
+                <div class="multi-select-panel compact-select-panel" id="stats-month-options"></div>
+              </div>
+              <div class="multi-select map-filter map-filter-airline" id="stats-airline-filter">
+                <button class="multi-select-button map-filter-button" id="stats-airline-menu-button" type="button" aria-label="Airline filter">
+                  <span class="map-filter-summary" id="stats-airline-summary">All airlines</span>
+                  <strong>∨</strong>
+                </button>
+                <div class="multi-select-panel compact-select-panel" id="stats-airline-options"></div>
+              </div>
+              <button class="stats-scope-reset" id="stats-reset-filters" type="button">Reset</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel stats-year-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Yearly Pattern</p>
+            </div>
+            <div class="panel-chip panel-chip-top" id="year-total-count">0 flights</div>
+          </div>
+          <div class="chart-list" id="year-chart"></div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Airlines</p>
+            </div>
+            <div class="panel-chip panel-chip-top" id="airline-total-count">—</div>
+          </div>
+          <div class="chart-list" id="airline-chart"></div>
+        </section>
+
+        <section class="panel stats-country-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Visited Countries</p>
+            </div>
+            <div class="panel-chip panel-chip-top" id="country-total-count">—</div>
+          </div>
+          <div class="chart-list" id="country-chart"></div>
+        </section>
+      </main>
+    </div>
+
+    <!-- Login modal -->
+    <div class="modal-backdrop" id="login-modal" aria-modal="true" role="dialog" aria-hidden="true">
+      <div class="modal-card">
+        <button class="modal-close" id="modal-close" type="button" aria-label="Close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M18 6 6 18M6 6l12 12" stroke-linecap="round"/></svg>
+        </button>
+        <div class="modal-header">
+          <div class="modal-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" width="22" height="22"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <h2 class="modal-title">Sign In</h2>
+            <p class="modal-subtitle">Access the full archive</p>
+          </div>
+        </div>
+        <form class="modal-form" id="login-form" onsubmit="return false">
+          <div class="modal-field">
+            <label class="modal-label" for="login-username">Username</label>
+            <input class="modal-input" id="login-username" type="text" placeholder="Enter username" autocomplete="username" />
+          </div>
+          <div class="modal-field">
+            <label class="modal-label" for="login-password">Password</label>
+            <input class="modal-input" id="login-password" type="password" placeholder="Enter password" autocomplete="current-password" />
+          </div>
+          <button class="modal-submit" type="submit">Sign In</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- ─── Worker URL ──────────────────────────────────────────────────────────
+         Set this to your deployed Cloudflare Worker URL before going live.
+         Leave empty (or omit) when running locally with data.js bundled.
+    ──────────────────────────────────────────────────────────────────────── -->
+    <script>
+      window.FLIGHT_WORKER_URL = "https://flight-archive-worker.at12885.workers.dev";
+    </script>
+
+    <!-- data.js is for local development only. Remove this line when deploying to GitHub Pages. -->
+    <!-- <script src="./data.js?v=20260409-1035"></script> -->
+    <script src="./shared.js?v=20260409-1035"></script>
+    <script src="./stats.js?v=20260409-1035"></script>
+    <script src="./login-modal.js"></script>
+  </body>
+</html>

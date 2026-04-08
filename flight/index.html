@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Johnny Kao Flight Archive</title>
+    <meta
+      name="description"
+      content="Personal flight archive with map stories, timeline filters, and searchable flight notes."
+    />
+    <link rel="icon" href="https://johnnykao.com/favicon.ico" type="image/x-icon" />
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com"
+    />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://unpkg.com/maplibre-gl@5.3.0/dist/maplibre-gl.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body class="archive-body">
+    <div class="page-shell">
+      <header class="hero">
+        <nav class="topbar">
+          <a class="brand" href="./index.html">
+            <span class="brand-mark">
+              <img src="https://johnnykao.com/favicon.ico" alt="Johnny Kao icon" />
+            </span>
+            <span class="brand-copy">
+              <strong>Flight Archive</strong>
+              <small>Map Museum + Personal Log</small>
+            </span>
+          </a>
+          <div class="nav-right">
+            <div class="nav-links">
+              <a class="nav-link is-active" href="./index.html">Archive</a>
+              <a class="nav-link" href="./stats.html">Statistics</a>
+            </div>
+            <button class="nav-login-btn" id="nav-login-btn" type="button" aria-label="Sign in">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="16" height="16" aria-hidden="true">
+                <circle cx="12" cy="8" r="4"/>
+                <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke-linecap="round"/>
+              </svg>
+            </button>
+          </div>
+        </nav>
+
+        <div class="hero-grid hero-grid-single">
+          <section class="hero-copy hero-copy-panel hero-copy-panel-full">
+            <div class="hero-top-layout">
+              <div class="hero-copy-column">
+                <p class="hero-eyebrow">A Personal Flight Archive</p>
+                <h1 class="hero-title-serif">Turn every takeoff and landing into a browsable personal archive.</h1>
+                <p class="hero-text">
+                  A long-form record of movement, return, and the places that became part of the story.
+                </p>
+                <div class="hero-cta">
+                  <a class="btn-solid" href="#archive-map">Browse the Archive</a>
+                </div>
+              </div>
+              <div class="hero-stats hero-stats-featured" id="hero-stats"></div>
+            </div>
+          </section>
+        </div>
+      </header>
+
+      <main class="content-grid">
+        <section class="panel map-panel" id="archive-map">
+          <div class="panel-heading stage-heading">
+            <div class="stage-heading-copy">
+              <p class="eyebrow">Atlas View</p>
+            </div>
+            <div class="panel-chip panel-chip-top" id="result-count">0 flights</div>
+          </div>
+          <div class="map-stage">
+            <div class="map-frame-wrap">
+              <div id="map" class="map-frame" aria-label="Flight archive map"></div>
+              <div class="map-overlay-controls">
+                <button class="map-overlay-btn" id="labels-toggle" data-tooltip="Airport labels" type="button">
+                  <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                </button>
+                <button class="map-overlay-btn" id="projection-toggle" data-tooltip="Switch to globe view" type="button">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="15" height="15" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" stroke-linecap="round"/></svg>
+                </button>
+                <button class="map-overlay-btn map-overlay-btn-reset" id="reset-filters" data-tooltip="Reset filters" type="button">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="15" height="15" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 3v5h5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+              </div>
+            </div>
+            <div class="map-legend-col">
+              <div class="legend-row legend-row-overlay" id="legend-row"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel journey-panel">
+          <div class="panel-heading filter-heading-compact">
+            <div>
+              <p class="eyebrow">Journey Mode</p>
+            </div>
+            <div class="panel-chip" id="journey-count">0 journeys</div>
+          </div>
+          <div class="journey-card-list" id="journey-grid"></div>
+        </section>
+
+      </main>
+    </div>
+
+    <!-- Login modal -->
+    <div class="modal-backdrop" id="login-modal" aria-modal="true" role="dialog" aria-hidden="true">
+      <div class="modal-card">
+        <button class="modal-close" id="modal-close" type="button" aria-label="Close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M18 6 6 18M6 6l12 12" stroke-linecap="round"/></svg>
+        </button>
+        <div class="modal-header">
+          <div class="modal-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" width="22" height="22"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <h2 class="modal-title">Sign In</h2>
+            <p class="modal-subtitle">Access the full archive</p>
+          </div>
+        </div>
+        <form class="modal-form" id="login-form" onsubmit="return false">
+          <div class="modal-field">
+            <label class="modal-label" for="login-username">Username</label>
+            <input class="modal-input" id="login-username" type="text" placeholder="Enter username" autocomplete="username" />
+          </div>
+          <div class="modal-field">
+            <label class="modal-label" for="login-password">Password</label>
+            <input class="modal-input" id="login-password" type="password" placeholder="Enter password" autocomplete="current-password" />
+          </div>
+          <button class="modal-submit" type="submit">Sign In</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- ─── Worker URL ──────────────────────────────────────────────────────────
+         Set this to your deployed Cloudflare Worker URL before going live.
+         Leave empty (or omit) when running locally with data.js bundled.
+    ──────────────────────────────────────────────────────────────────────── -->
+    <script>
+      window.FLIGHT_WORKER_URL = "https://flight-archive-worker.at12885.workers.dev";
+    </script>
+
+    <script src="https://unpkg.com/maplibre-gl@5.3.0/dist/maplibre-gl.js"></script>
+    <!-- data.js is for local development only. Remove this line when deploying to GitHub Pages. -->
+    <!-- <script src="./data.js"></script> -->
+    <script src="./shared.js"></script>
+    <script src="./archive.js"></script>
+    <script src="./login-modal.js"></script>
+  </body>
+</html>
