@@ -305,7 +305,7 @@ function initMap() {
     style: "https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json",
     center: [112, 26],
     zoom: 1.3,
-    attributionControl: true,
+    attributionControl: { compact: true },
   });
 
   map.addControl(new maplibregl.NavigationControl({ visualizePitch: true }), "top-right");
