@@ -312,11 +312,24 @@
       <li><a href="https://www.linkedin.com/in/johnnykao-finance/" target="_blank" rel="noopener noreferrer">LinkedIn<span class="external-mark" aria-hidden="true">↗︎</span></a></li>
       <li><a href="https://johnnykao.substack.com/about" target="_blank" rel="noopener noreferrer">Newsletter<span class="external-mark" aria-hidden="true">↗︎</span></a></li>
       <li><a href="#" id="contact-link">Contact<span class="external-mark" aria-hidden="true">↗︎</span></a></li>
+      <li><a href="#" data-privacy-trigger>Privacy</a></li>
     </ul>
     <p class="footer-copy">&#169; 2026 Johnny Kao &middot; Tokyo</p>
   </footer>
 
   <a href="#top" class="back-to-top" id="back-to-top" aria-label="Back to top">↑</a>
+
+  <!-- PRIVACY MODAL -->
+  <div class="privacy-overlay" id="privacy-overlay" role="dialog" aria-modal="true" aria-label="Privacy Policy">
+    <div class="privacy-modal" id="privacy-modal">
+      <div class="privacy-modal-close">
+        <button id="privacy-modal-close-btn" aria-label="Close privacy policy">✕</button>
+      </div>
+      <div id="privacy-modal-content">
+        <!-- 内容由 JS 动态注入 -->
+      </div>
+    </div>
+  </div>
 
   <script>
     (function () {
@@ -741,6 +754,112 @@
 
       loadArticles();
     })();
+  </script>
+  <script>
+    // ─── PRIVACY MODAL ─────────────────────────────────────────────
+    function openPrivacyModal() {
+      var overlay = document.getElementById('privacy-overlay');
+      if (!overlay) return;
+      overlay.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+      loadPrivacyContent();
+    }
+
+    function closePrivacyModal() {
+      var overlay = document.getElementById('privacy-overlay');
+      if (!overlay) return;
+      overlay.classList.remove('is-open');
+      document.body.style.overflow = '';
+    }
+
+    function loadPrivacyContent() {
+      var container = document.getElementById('privacy-modal-content');
+      if (!container || container.dataset.loaded) return;
+
+      fetch('/data/privacy.json')
+        .then(function(res) { return res.json(); })
+        .then(function(data) {
+          var html = '';
+
+          // Eyebrow
+          html += '<div class="privacy-modal-eyebrow">';
+          html += '<span class="privacy-modal-eyebrow-rule"></span>';
+          html += '<span class="privacy-modal-eyebrow-text">Site Information</span>';
+          html += '</div>';
+
+          // Title
+          html += '<h2>' + data.title + '</h2>';
+          html += '<p class="privacy-modal-date">Last updated: ' + data.updated + '</p>';
+
+          // Intro
+          html += '<div class="privacy-modal-section"><p>' + data.intro + '</p></div>';
+          html += '<div class="thin-rule"></div>';
+
+          // Sections
+          data.sections.forEach(function(section) {
+            html += '<div class="privacy-modal-section">';
+            html += '<p class="privacy-modal-section-label">' + section.label + '</p>';
+            html += '<h3>' + section.heading + '</h3>';
+
+            section.content.forEach(function(block) {
+              if (typeof block === 'string') {
+                html += '<p>' + block + '</p>';
+              } else if (block.type === 'list') {
+                html += '<ul>';
+                block.items.forEach(function(item) {
+                  html += '<li>' + item + '</li>';
+                });
+                html += '</ul>';
+              }
+            });
+
+            html += '</div>';
+          });
+
+          // Footnote
+          html += '<div class="thin-rule"></div>';
+          html += '<p class="privacy-modal-footnote">' + data.footnote + '</p>';
+
+          container.innerHTML = html;
+          container.dataset.loaded = 'true';
+
+          // 邮件地址注入（防爬虫，逐字符拼接，不含 mailto）
+          var emailEl = document.getElementById('privacy-modal-email');
+          if (emailEl) {
+            var chars = ['j','o','h','n','n','y','k','a','o','.','b','i','z','@','g','m','a','i','l','.','c','o','m'];
+            emailEl.textContent = chars.join('');
+          }
+        })
+        .catch(function(err) {
+          console.error('Privacy content load failed:', err);
+        });
+    }
+
+    // 事件绑定
+    var privacyOverlay = document.getElementById('privacy-overlay');
+    var privacyCloseBtn = document.getElementById('privacy-modal-close-btn');
+
+    if (privacyCloseBtn) {
+      privacyCloseBtn.addEventListener('click', closePrivacyModal);
+    }
+    if (privacyOverlay) {
+      privacyOverlay.addEventListener('click', function(e) {
+        if (e.target === privacyOverlay) closePrivacyModal();
+      });
+    }
+    // ESC 键关闭
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closePrivacyModal();
+    });
+
+    // 绑定 Footer 的 Privacy 链接
+    var privacyTriggers = document.querySelectorAll('[data-privacy-trigger]');
+    privacyTriggers.forEach(function(el) {
+      el.addEventListener('click', function(e) {
+        e.preventDefault();
+        openPrivacyModal();
+      });
+    });
   </script>
   <script>
     (function(c, l, a, r, i, t, y) {

@@ -1,0 +1,39 @@
+{
+  "title": "Privacy Policy",
+  "updated": "April 2026",
+  "intro": "This website is a personal site. It collects a limited amount of technical information to understand how the site is used and to ensure it functions correctly. No personal data is sold or shared with third parties for advertising purposes.",
+  "sections": [
+    {
+      "label": "Analytics",
+      "heading": "What is collected",
+      "content": [
+        "This site uses the following tools to collect anonymised usage data:",
+        {
+          "type": "list",
+          "items": [
+            "<strong>Google Analytics (GA4)</strong> — page views, session duration, general location by country or region, device type, and referring source. Data is processed by Google LLC under their standard terms. Retention is set to 12 months.",
+            "<strong>Microsoft Clarity</strong> — aggregated session behaviour including scroll depth and click patterns, used to identify usability issues. Data is processed by Microsoft under their standard terms.",
+            "<strong>Site-level technical analytics</strong> — basic device and browser context collected at the time of your visit, used for technical diagnostics and aggregate traffic analysis. This includes browser type, operating system, screen dimensions, and approximate time zone. Retained for up to 12 months and not used to identify individuals."
+          ]
+        },
+        "None of these tools are used to track you across other websites or to build individual profiles."
+      ]
+    },
+    {
+      "label": "Third-Party Services",
+      "heading": "External links",
+      "content": [
+        "This site links to external platforms including LinkedIn, Substack, and others. Visiting those platforms is subject to their respective privacy policies. This site does not control how those services handle your data."
+      ]
+    },
+    {
+      "label": "Your Rights",
+      "heading": "Data and contact",
+      "content": [
+        "If you have questions about data collected through this site, you may contact: <span id='privacy-modal-email'></span>",
+        "This site does not maintain user accounts or collect names, email addresses, or other directly identifying information through its own infrastructure."
+      ]
+    }
+  ],
+  "footnote": "This policy may be updated periodically. Material changes will be reflected in the date above."
+}
