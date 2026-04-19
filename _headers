@@ -1,3 +1,8 @@
+/
+  Link: </llms.txt>; rel="alternate"; type="text/plain"
+  Link: </llms-full.txt>; rel="alternate"; type="text/plain"
+  Link: </sitemap.xml>; rel="sitemap"; type="application/xml"
+
 /*
   Access-Control-Allow-Origin: https://johnnykao.com
   X-Frame-Options: SAMEORIGIN
