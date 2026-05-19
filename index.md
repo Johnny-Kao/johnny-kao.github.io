@@ -28,7 +28,7 @@ Domains: Wealth Management · Digital Transformation · Strategic Judgment
 Perspective across digital banking, payment infrastructure, and digital asset contexts within broader alternative asset environments.
 Domains: Platform Building · Digital Assets · Financial Infrastructure
 
-**CFO-Office Strategy**
+**CFO-Office Strategy — Confidential Startup**
 Bringing investors, management, and cross-functional stakeholders into alignment around capital priorities and long-range decisions.
 Domains: Stakeholder Alignment · Investor Dialogue · Capital Judgment
 
