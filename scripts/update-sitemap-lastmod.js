@@ -7,7 +7,9 @@ const SITEMAP_PATH = path.join(process.cwd(), 'sitemap.xml');
 const TODAY = new Date().toISOString().slice(0, 10);
 const URLS_TO_UPDATE = [
   'https://johnnykao.com/',
-  'https://johnnykao.com/data/substack.json'
+  'https://johnnykao.com/articles/',
+  'https://johnnykao.com/data/substack.json',
+  'https://johnnykao.com/data/articles-archive.json'
 ];
 
 async function main() {
