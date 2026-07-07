@@ -29,6 +29,15 @@ function asTimestamp(dateValue) {
   return Number.isNaN(parsed) ? 0 : parsed;
 }
 
+function sortOrderFor(sourceTag, index) {
+  const base = sourceTag === 'substack'
+    ? 0
+    : sourceTag === 'article'
+      ? 10_000
+      : 20_000;
+  return base + index;
+}
+
 async function readJson(filePath) {
   try {
     return JSON.parse(await fs.readFile(filePath, 'utf8'));
@@ -46,14 +55,17 @@ async function main() {
 
   const merged = new Map();
 
-  for (const rawItem of archiveItems) {
+  for (const [index, rawItem] of archiveItems.entries()) {
     const item = normalizeItem(rawItem);
     if (!item.title || !item.url) continue;
     item.source = inferSource(item.url, item.source);
-    merged.set(item.url, item);
+    merged.set(item.url, {
+      ...item,
+      __sortOrder: sortOrderFor('archive', index)
+    });
   }
 
-  for (const rawItem of substackItems) {
+  for (const [index, rawItem] of substackItems.entries()) {
     const item = normalizeItem(rawItem, 'Substack');
     if (!item.title || !item.url) continue;
     item.source = inferSource(item.url, item.source);
@@ -61,11 +73,12 @@ async function main() {
     merged.set(item.url, {
       ...existing,
       ...item,
-      summary: item.summary || existing.summary || ''
+      summary: item.summary || existing.summary || '',
+      __sortOrder: sortOrderFor('substack', index)
     });
   }
 
-  for (const rawItem of articleItems) {
+  for (const [index, rawItem] of articleItems.entries()) {
     const item = normalizeItem(rawItem, 'LinkedIn');
     if (!item.title || !item.url) continue;
     item.source = inferSource(item.url, item.source);
@@ -73,13 +86,20 @@ async function main() {
     merged.set(item.url, {
       ...existing,
       ...item,
-      summary: item.summary || existing.summary || ''
+      summary: item.summary || existing.summary || '',
+      __sortOrder: existing.__sortOrder ?? sortOrderFor('article', index)
     });
   }
 
   const sorted = Array.from(merged.values()).sort((a, b) => {
-    return asTimestamp(b.date) - asTimestamp(a.date);
-  });
+    const timestampDiff = asTimestamp(b.date) - asTimestamp(a.date);
+    if (timestampDiff !== 0) return timestampDiff;
+
+    const sortOrderDiff = (a.__sortOrder ?? Number.MAX_SAFE_INTEGER) - (b.__sortOrder ?? Number.MAX_SAFE_INTEGER);
+    if (sortOrderDiff !== 0) return sortOrderDiff;
+
+    return a.title.localeCompare(b.title, 'en');
+  }).map(({ __sortOrder, ...item }) => item);
 
   await fs.mkdir(path.dirname(ARCHIVE_PATH), { recursive: true });
   await fs.writeFile(ARCHIVE_PATH, JSON.stringify(sorted, null, 2) + '\n', 'utf8');
