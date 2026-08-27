@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://johnnykao.com/n8n">
+  <title>Johnny n8n</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #1d2939;
+      --muted: #526071;
+      --line: #d9e0e8;
+      --surface: #ffffff;
+      --accent: #245a8d;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: #f6f8fa;
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 16px;
+      line-height: 1.65;
+    }
+
+    main {
+      width: min(100% - 40px, 760px);
+      margin: 0 auto;
+      padding: 64px 0 72px;
+    }
+
+    header { margin-bottom: 48px; }
+
+    h1, h2 { line-height: 1.2; }
+
+    h1 {
+      margin: 0 0 14px;
+      font-size: clamp(2rem, 5vw, 2.75rem);
+      font-weight: 650;
+      letter-spacing: -0.035em;
+    }
+
+    h2 {
+      margin: 0 0 16px;
+      font-size: 1.35rem;
+      font-weight: 650;
+      letter-spacing: -0.02em;
+    }
+
+    p { margin: 0 0 16px; }
+
+    .intro {
+      max-width: 650px;
+      color: var(--muted);
+      font-size: 1.1rem;
+    }
+
+    nav { margin-top: 24px; }
+
+    a {
+      color: var(--accent);
+      text-underline-offset: 3px;
+    }
+
+    nav a { margin-right: 22px; }
+
+    section {
+      padding: 32px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      margin-bottom: 20px;
+      scroll-margin-top: 24px;
+    }
+
+    ul {
+      padding-left: 1.25rem;
+      margin: 0;
+    }
+
+    li + li { margin-top: 8px; }
+
+    footer {
+      padding-top: 8px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 560px) {
+      main {
+        width: min(100% - 32px, 760px);
+        padding: 40px 0 48px;
+      }
+
+      section { padding: 24px; }
+      nav a { margin-right: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>Johnny n8n</h1>
+      <p class="intro">A privately operated, self-hosted automation service for personal workflows.</p>
+      <nav aria-label="Page sections">
+        <a href="#privacy">Privacy Policy</a>
+        <a href="#terms">Terms of Service</a>
+      </nav>
+    </header>
+
+    <section id="about">
+      <h2>About</h2>
+      <p>Johnny n8n is used only by its owner to connect authorized Google services with personal automation workflows. It is not a public SaaS product and does not offer public registration or access.</p>
+      <p>Google account data is accessed only after explicit OAuth authorization and only to execute authorized automation workflows.</p>
+    </section>
+
+    <section id="privacy">
+      <h2>Privacy Policy</h2>
+      <ul>
+        <li>Google data is accessed only with user authorization.</li>
+        <li>Data is used only to perform requested automation workflows.</li>
+        <li>Google user data is not sold or used for advertising or marketing purposes.</li>
+        <li>Data is not intentionally shared with unrelated third parties.</li>
+        <li>Access can be revoked through the user's Google Account permissions.</li>
+        <li>The service is privately operated and not available for public signup.</li>
+      </ul>
+    </section>
+
+    <section id="terms">
+      <h2>Terms of Service</h2>
+      <ul>
+        <li>The service is provided for private personal automation use.</li>
+        <li>There is no public service offering or user registration.</li>
+        <li>Access is limited to authorized users.</li>
+        <li>The service may be changed or discontinued at any time.</li>
+      </ul>
+    </section>
+
+    <section id="contact">
+      <h2>Contact</h2>
+      <p><a href="mailto:at12885@gmail.com">at12885@gmail.com</a></p>
+    </section>
+
+    <footer>© Johnny n8n</footer>
+  </main>
+</body>
+</html>
