@@ -138,6 +138,7 @@
     gtag('js', new Date());
     gtag('config', 'G-J03Z8DF9NX');
   </script>
+  <script src="/js/contact.js" defer></script>
 </head>
 <body>
 
@@ -339,11 +340,6 @@
 
   <script>
     (function () {
-      var user = ['johnnykao', 'biz'].join('.');
-      var domain = ['gmail', 'com'].join('.');
-      var address = user + '@' + domain;
-      var contact = document.getElementById('contact-link');
-      var navContact = document.getElementById('nav-contact-link');
       var backToTop = document.getElementById('back-to-top');
       var sectionLinks = Array.prototype.slice.call(document.querySelectorAll('.nav-links a[data-section]'));
       var sections = sectionLinks
@@ -423,15 +419,6 @@
         }
 
         window.requestAnimationFrame(step);
-      }
-
-      if (contact) {
-        contact.setAttribute('href', 'mailto:' + address);
-        contact.setAttribute('aria-label', 'Email Johnny Kao');
-      }
-      if (navContact) {
-        navContact.setAttribute('href', 'mailto:' + address);
-        navContact.setAttribute('aria-label', 'Email Johnny Kao');
       }
 
       var aboutCompanyFour = document.getElementById('about-company-4');
