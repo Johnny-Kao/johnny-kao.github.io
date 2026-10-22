@@ -1,0 +1,18 @@
+export function onRequest() {
+  return new Response(
+    [
+      'Contact: https://www.linkedin.com/in/johnnykao-finance/',
+      'Expires: 2027-10-22T00:00:00.000Z',
+      'Preferred-Languages: zh-TW, en',
+      'Canonical: https://johnnykao.com/.well-known/security.txt'
+    ].join('\n') + '\n',
+    {
+      status: 200,
+      headers: {
+        'Content-Type': 'text/plain; charset=utf-8',
+        'Cache-Control': 'public, max-age=300',
+        'X-Content-Type-Options': 'nosniff'
+      }
+    }
+  );
+}

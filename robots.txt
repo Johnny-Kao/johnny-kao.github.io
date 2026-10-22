@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://johnnykao.com/sitemap.xml
+Content-Signal: search=yes, ai-train=yes, ai-input=yes

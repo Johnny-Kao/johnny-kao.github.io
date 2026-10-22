@@ -1,0 +1,21 @@
+.DS_Store
+
+# Local credentials, runtime state, and generated tool output.
+.env
+.env.*
+!.env.example
+.dev.vars
+.dev.vars.*
+.wrangler/
+node_modules/
+*.pem
+*.key
+*.p12
+*.pfx
+credentials*.json
+*-credentials.json
+secrets*.json
+
+device-logger/
+substack-feed-worker/
+flight/data.js
