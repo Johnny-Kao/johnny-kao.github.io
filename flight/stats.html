@@ -42,12 +42,6 @@
               <a class="nav-link" href="./index.html">Archive</a>
               <a class="nav-link is-active" href="./stats.html">Statistics</a>
             </div>
-            <button class="nav-sync-btn" id="nav-sync-btn" type="button" aria-label="Sync data" hidden>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="16" height="16" aria-hidden="true">
-                <path d="M4 12a8 8 0 0 1 14.93-4H16m4 0v-4" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M20 12a8 8 0 0 1-14.93 4H8m-4 0v4" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </button>
             <button class="nav-login-btn" id="nav-login-btn" type="button" aria-label="Sign in">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="16" height="16" aria-hidden="true">
                 <circle cx="12" cy="8" r="4"/>
@@ -145,7 +139,7 @@
             <p class="modal-subtitle">Access the full archive</p>
           </div>
         </div>
-        <form class="modal-form" id="login-form" onsubmit="return false">
+        <form class="modal-form" id="login-form">
           <div class="modal-field">
             <label class="modal-label" for="login-username">Username</label>
             <input class="modal-input" id="login-username" type="text" placeholder="Enter username" autocomplete="username" />
@@ -163,9 +157,7 @@
          Set this to your deployed Cloudflare Worker URL before going live.
          Leave empty (or omit) when running locally with data.js bundled.
     ──────────────────────────────────────────────────────────────────────── -->
-    <script>
-      window.FLIGHT_WORKER_URL = "https://flight-archive-worker.at12885.workers.dev";
-    </script>
+    <script src="./config.js"></script>
 
     <!-- data.js is for local development only. Gitignored — never pushed to GitHub. -->
     <script src="./data.js"></script>
