@@ -139,6 +139,7 @@
     gtag('config', 'G-J03Z8DF9NX');
   </script>
   <script src="/js/contact.js" defer></script>
+  <script src="/js/articles.js" defer></script>
 </head>
 <body>
 
@@ -620,133 +621,6 @@
         updateCanonicalWithoutContextParams();
       }
 
-      function formatArticleDate(value) {
-        var date = new Date(value);
-        if (isNaN(date.getTime())) return value || '';
-        return date.toLocaleDateString('en-US', {
-          month: 'short',
-          year: 'numeric'
-        });
-      }
-
-      function truncateText(value, maxLength) {
-        var text = (value || '').trim();
-        if (!text || text.length <= maxLength) return text;
-        return text.slice(0, maxLength).replace(/\s+\S*$/, '') + '…';
-      }
-
-      function isAllowedArticleUrl(value) {
-        if (typeof value !== 'string' || value.length === 0 || value.length > 2048) return false;
-        try {
-          var url = new URL(value);
-          return url.protocol === 'https:' &&
-            !url.username && !url.password && !url.port &&
-            (url.hostname === 'johnnykao.substack.com' || url.hostname === 'www.linkedin.com');
-        } catch (error) {
-          return false;
-        }
-      }
-
-      function buildArticleMarkup(article, index) {
-        var link = document.createElement('a');
-        link.href = article.url;
-        link.className = 'writing-item';
-        link.target = '_blank';
-        link.rel = 'noopener noreferrer';
-        link.dataset.reveal = '';
-        link.dataset.delay = String(index + 1);
-
-        var date = document.createElement('span');
-        date.className = 'writing-date';
-        date.textContent = article.date;
-        link.appendChild(date);
-
-        var content = document.createElement('div');
-        content.className = 'writing-item-content';
-        var title = document.createElement('h3');
-        title.className = 'writing-title';
-        title.textContent = article.title;
-        var excerpt = document.createElement('div');
-        excerpt.className = 'writing-excerpt';
-        excerpt.appendChild(document.createTextNode(article.summary));
-        var readMore = document.createElement('span');
-        readMore.className = 'writing-readmore';
-        readMore.appendChild(document.createTextNode('Read more'));
-        var mark = document.createElement('span');
-        mark.className = 'external-mark';
-        mark.setAttribute('aria-hidden', 'true');
-        mark.textContent = '↗︎';
-        readMore.appendChild(mark);
-        excerpt.appendChild(readMore);
-        content.appendChild(title);
-        content.appendChild(excerpt);
-        link.appendChild(content);
-        return link;
-      }
-
-      function renderArticles(articles) {
-        var articleList = document.getElementById('article-list');
-        if (!articleList || !articles || !articles.length) return;
-        articleList.replaceChildren.apply(articleList, articles.map(buildArticleMarkup));
-
-        var revealItems = articleList.querySelectorAll('[data-reveal]');
-        for (var i = 0; i < revealItems.length; i++) {
-          revealItems[i].classList.add('is-visible');
-        }
-      }
-
-      function normalizeJsonArticles(items, limit) {
-        return (items || []).slice(0, limit || 5).map(function(item) {
-          return {
-            date: formatArticleDate(item.date),
-            title: item.title || '',
-            summary: truncateText(item.summary || '', 280),
-            url: item.url || ''
-          };
-        }).filter(function(article) {
-          return article.title && isAllowedArticleUrl(article.url);
-        });
-      }
-
-      function loadArticles() {
-        var articleList = document.getElementById('article-list');
-        if (!articleList) return;
-
-        var hasStaticArticles = articleList.querySelector('.writing-item');
-        if (hasStaticArticles) {
-          console.info('[Articles] Using static HTML content.');
-          return;
-        }
-
-        fetch('https://johnnykao.com/data/substack.json')
-          .then(function(response) {
-            if (!response.ok) throw new Error('substack.json request failed');
-            return response.json();
-          })
-          .then(function(items) {
-            var substackArticles = normalizeJsonArticles(items, 5);
-            if (!substackArticles.length) throw new Error('No substack.json articles found');
-            console.info('[Articles] Rendered from substack.json fallback.');
-            renderArticles(substackArticles);
-          })
-          .catch(function() {
-            fetch('https://johnnykao.com/data/article.json')
-              .then(function(response) {
-                if (!response.ok) throw new Error('JSON request failed');
-                return response.json();
-              })
-              .then(function(items) {
-                var fallbackArticles = normalizeJsonArticles(items, 5);
-                if (!fallbackArticles.length) throw new Error('No JSON articles found');
-                console.info('[Articles] Rendered from article.json fallback.');
-                renderArticles(fallbackArticles);
-              })
-              .catch(function(error) {
-                console.error('Article feed fallback failed:', error);
-              });
-          });
-      }
-
       var idleRunner = window.requestIdleCallback || function(callback) {
         return setTimeout(callback, 1);
       };
@@ -780,7 +654,6 @@
         applyClientContextTagging();
       });
 
-      loadArticles();
     })();
   </script>
   <script>
