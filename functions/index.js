@@ -2,6 +2,16 @@ export async function onRequest(context) {
   const { request, env } = context;
   const pathname = new URL(request.url).pathname;
 
+  if (pathname === '/n8n' || pathname.startsWith('/n8n/')) {
+    return new Response('Not Found', {
+      status: 404,
+      headers: {
+        'Content-Type': 'text/plain; charset=utf-8',
+        'X-Content-Type-Options': 'nosniff'
+      }
+    });
+  }
+
   if (pathname === '/.well-known/security.txt') {
     return new Response(
       [
